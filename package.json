@@ -23,8 +23,10 @@
     }
   },
   "dependencies": {
+    "@nuxtjs/auth": "^4.9.1",
     "@nuxtjs/axios": "^5.12.5",
     "core-js": "^3.8.3",
+    "nanoid": "^1.2.2",
     "nuxt": "^2.14.12"
   },
   "devDependencies": {
