@@ -1,7 +1,7 @@
 <template>
   <v-app dark>
     <v-navigation-drawer v-model="drawer" fixed app>
-      <v-list>
+      <v-list v-if="!$auth.$state.loggedIn">
         <v-list-item nuxt to="/">
           <v-list-item-action>
             <v-icon>mdi-star</v-icon>
@@ -16,6 +16,24 @@
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title>Login</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+      <v-list v-else>
+        <v-list-item nuxt to="/">
+          <v-list-item-action>
+            <v-icon>mdi-stop</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>Dashboard</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item nuxt to="/logout">
+          <v-list-item-action>
+            <v-icon>mdi-run</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>Logout</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>

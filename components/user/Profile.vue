@@ -1,21 +1,25 @@
 <template>
-  <v-row>
-    <v-col class="text-center">
-      <p>{{ profile }}</p>
-    </v-col>
-  </v-row>
+  <v-card>
+    <v-card-title>
+      <v-avatar>
+        <img :src="profile.picture" :alt="profile.name" />
+      </v-avatar>
+      <v-card-title>
+        {{ profile.name }}
+      </v-card-title>
+    </v-card-title>
+    <v-card-subtitle>
+      {{ profile.email }}
+    </v-card-subtitle>
+  </v-card>
 </template>
 
 <script>
 export default {
-  data: () => ({
-    profile: {},
-  }),
-  async fetch({ $axios }) {
-    this.profile = await $axios.get('http://10.123.2.192:8080/profile', {
-      withCredentials: true,
-    })
+  computed: {
+    profile() {
+      return this.$auth.$state.user
+    },
   },
-  fetchOnServer: false,
 }
 </script>

@@ -10,13 +10,8 @@
 export default {
   async mounted() {
     if (location.hash.length <= 1) return
-    const hashValue = location.hash.substring(1)
-    const params = new URLSearchParams(hashValue)
-    const accessToken = params.get('access_token')
-    if (accessToken) {
-      await this.$axios.get(`authorize/${accessToken}`)
-    }
-    this.$router.push('/')
+    await this.$axios.get('authorize')
+    await this.$router.push('/')
   },
 }
 </script>
