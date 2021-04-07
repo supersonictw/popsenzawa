@@ -8,13 +8,13 @@
 
 <script>
 export default {
-  mounted() {
+  async mounted() {
     if (location.hash.length <= 1) return
     const hashValue = location.hash.substring(1)
     const params = new URLSearchParams(hashValue)
     const accessToken = params.get('access_token')
     if (accessToken) {
-      document.cookie = `vhs_access=${accessToken}`
+      await this.$axios.get(`authorize/${accessToken}`)
     }
     this.$router.push('/')
   },

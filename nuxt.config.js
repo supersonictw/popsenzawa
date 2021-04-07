@@ -1,4 +1,5 @@
 import colors from 'vuetify/es5/util/colors'
+import config from './vhs.config.json'
 
 export default {
   // Target: https://go.nuxtjs.dev/config-target
@@ -61,7 +62,11 @@ export default {
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
-  axios: {},
+  axios: {
+    baseURL: config.backendURI,
+    browserBaseURL: config.backendURI,
+    credentials: true,
+  },
 
   auth: {
     router: {
