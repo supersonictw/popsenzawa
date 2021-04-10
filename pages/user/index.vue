@@ -7,7 +7,7 @@
     </v-row>
     <v-row>
       <v-col>
-        <v-list v-if="directory">
+        <v-list v-if="directory.length">
           <v-list-item v-show="cwd.length" @click="enter('..')">
             <v-list-item-icon>
               <v-icon>mdi-reply</v-icon>
@@ -32,6 +32,9 @@
                 {{ timeReadable(item.lastModified) }}
               </v-list-item-subtitle>
             </v-list-item-content>
+            <v-list-item-action @click="remove(item.name)">
+              <v-icon>mdi-delete</v-icon>
+            </v-list-item-action>
           </v-list-item>
         </v-list>
       </v-col>
@@ -51,6 +54,7 @@ export default {
   data: () => ({
     cwd: [],
     directory: [],
+    removing: false,
   }),
   mounted() {
     this.enter()
@@ -64,6 +68,7 @@ export default {
       }
     },
     async enter(target) {
+      if (this.removing) return
       if (target) {
         if (target !== '..') {
           this.cwd.push(target)
@@ -84,6 +89,7 @@ export default {
       ]
     },
     async download(target) {
+      if (this.removing) return
       const targetPath = this.cwd.concat(target).join('/')
       const result = await this.$axios.$get(`user/${targetPath}`)
       if (!(result.status === 200 && result.data.status)) return
@@ -93,6 +99,13 @@ export default {
       link.href = window.URL.createObjectURL(blob)
       link.click()
       window.URL.revokeObjectURL(link.href)
+    },
+    async remove(target) {
+      this.removing = true
+      const targetPath = this.cwd.concat(target).join('/')
+      await this.$axios.$delete(`user/${targetPath}`)
+      await this.enter()
+      this.removing = false
     },
     sizeReadable(fileSize) {
       return filesize(fileSize)
