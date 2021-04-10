@@ -7,6 +7,16 @@
     </v-row>
     <v-row>
       <v-col>
+        <v-btn>
+          <v-icon>mdi-folder-plus</v-icon>
+        </v-btn>
+        <v-btn>
+          <v-icon>mdi-file-plus</v-icon>
+        </v-btn>
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col>
         <v-list v-if="directory.length">
           <v-list-item v-show="cwd.length" @click="enter('..')">
             <v-list-item-icon>
@@ -35,6 +45,19 @@
             <v-list-item-action @click="remove(item.name)">
               <v-icon>mdi-delete</v-icon>
             </v-list-item-action>
+          </v-list-item>
+        </v-list>
+        <v-list v-else>
+          <v-list-item>
+            <v-list-item-icon>
+              <v-icon>mdi-heart-broken</v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title>( Empty )</v-list-item-title>
+              <v-list-item-subtitle>
+                There is no file/directory found in your space.
+              </v-list-item-subtitle>
+            </v-list-item-content>
           </v-list-item>
         </v-list>
       </v-col>
