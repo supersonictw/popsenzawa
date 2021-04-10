@@ -8,9 +8,8 @@
 
 <script>
 export default {
+  name: 'Authorize',
   async mounted() {
-    if (location.hash.length <= 1) return
-    await this.$axios.get('authorize')
     await this.$router.push('/')
   },
 }

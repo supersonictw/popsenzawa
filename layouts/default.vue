@@ -22,13 +22,21 @@
       <v-list v-else>
         <v-list-item nuxt to="/">
           <v-list-item-action>
-            <v-icon>mdi-stop</v-icon>
+            <v-icon>mdi-star</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>Introduction</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item nuxt to="/user">
+          <v-list-item-action>
+            <v-icon>mdi-information</v-icon>
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title>Dashboard</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item nuxt to="/logout">
+        <v-list-item @click="logout">
           <v-list-item-action>
             <v-icon>mdi-run</v-icon>
           </v-list-item-action>
@@ -58,6 +66,11 @@ export default {
       drawer: false,
       title: 'VHS',
     }
+  },
+  methods: {
+    logout() {
+      this.$auth.logout()
+    },
   },
 }
 </script>

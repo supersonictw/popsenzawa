@@ -81,6 +81,7 @@
 import Logo from '~/components/Logo.vue'
 
 export default {
+  name: 'Introduce',
   components: {
     Logo,
   },
