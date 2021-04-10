@@ -1,67 +1,75 @@
 <template>
-  <div>
-    <v-row>
-      <v-col>
-        <Profile />
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col>
-        <v-btn>
-          <v-icon>mdi-folder-plus</v-icon>
-        </v-btn>
-        <v-btn>
-          <v-icon>mdi-file-plus</v-icon>
-        </v-btn>
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col>
-        <v-list v-if="directory.length">
-          <v-list-item v-show="cwd.length" @click="enter('..')">
-            <v-list-item-icon>
-              <v-icon>mdi-reply</v-icon>
-            </v-list-item-icon>
-            <v-list-item-content>
-              <v-list-item-title>..</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-          <v-list-item
-            v-for="(item, index) in directory"
-            :key="index"
-            @click="action(item)"
-          >
-            <v-list-item-icon>
-              <v-icon v-if="item.type">mdi-folder</v-icon>
-              <v-icon v-else>mdi-file</v-icon>
-            </v-list-item-icon>
-            <v-list-item-content>
-              <v-list-item-title>{{ item.name }}</v-list-item-title>
-              <v-list-item-subtitle>
-                {{ sizeReadable(item.size) }}
-                {{ timeReadable(item.lastModified) }}
-              </v-list-item-subtitle>
-            </v-list-item-content>
-            <v-list-item-action @click="remove(item.name)">
-              <v-icon>mdi-delete</v-icon>
-            </v-list-item-action>
-          </v-list-item>
-        </v-list>
-        <v-list v-else>
-          <v-list-item>
-            <v-list-item-icon>
-              <v-icon>mdi-heart-broken</v-icon>
-            </v-list-item-icon>
-            <v-list-item-content>
-              <v-list-item-title>( Empty )</v-list-item-title>
-              <v-list-item-subtitle>
-                There is no file/directory found in your space.
-              </v-list-item-subtitle>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list>
-      </v-col>
-    </v-row>
+  <div :class="activeStatus">
+    <div id="interactive">
+      <v-row>
+        <v-col>
+          <Profile />
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col>
+          <v-btn @click="active = 1">
+            <v-icon left>mdi-folder-plus</v-icon>
+            New Directory
+          </v-btn>
+          <v-btn @click="active = 2">
+            <v-icon left>mdi-file-plus</v-icon>
+            New File
+          </v-btn>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col>
+          <v-list v-if="directory.length">
+            <v-list-item v-show="cwd.length" @click="enter('..')">
+              <v-list-item-icon>
+                <v-icon>mdi-reply</v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title>..</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+            <v-list-item
+              v-for="(item, index) in directory"
+              :key="index"
+              @click="action(item)"
+            >
+              <v-list-item-icon>
+                <v-icon v-if="item.type">mdi-folder</v-icon>
+                <v-icon v-else>mdi-file</v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title>{{ item.name }}</v-list-item-title>
+                <v-list-item-subtitle>
+                  {{ sizeReadable(item.size) }}
+                  {{ timeReadable(item.lastModified) }}
+                </v-list-item-subtitle>
+              </v-list-item-content>
+              <v-list-item-action @click="remove(item.name)">
+                <v-icon>mdi-delete</v-icon>
+              </v-list-item-action>
+            </v-list-item>
+          </v-list>
+          <v-list v-else>
+            <v-list-item>
+              <v-list-item-icon>
+                <v-icon>mdi-heart-broken</v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title>( Empty )</v-list-item-title>
+                <v-list-item-subtitle>
+                  There is no file/directory found in your space.
+                </v-list-item-subtitle>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list>
+        </v-col>
+      </v-row>
+    </div>
+    <div id="model">
+      <NewDirectoryModel v-if="active === 1" @cancel="active = 0" />
+      <NewFileModel v-else-if="active === 2" @cancel="active = 0" />
+    </div>
   </div>
 </template>
 
@@ -70,15 +78,27 @@ import moment from 'moment'
 import filesize from 'filesize'
 
 import Profile from '~/components/user/Profile'
+import NewDirectoryModel from '~/components/user/NewDirectoryModel'
+import NewFileModel from '~/components/user/NewFileModel'
 
 export default {
   name: 'Dashboard',
-  components: { Profile },
+  components: {
+    Profile,
+    NewDirectoryModel,
+    NewFileModel,
+  },
   data: () => ({
     cwd: [],
     directory: [],
     removing: false,
+    active: 0,
   }),
+  computed: {
+    activeStatus() {
+      return this.active ? 'active' : ''
+    },
+  },
   mounted() {
     this.enter()
   },
@@ -144,3 +164,17 @@ export default {
   },
 }
 </script>
+
+<style>
+.active #interactive {
+  opacity: 0.3;
+  filter: blur(3px);
+}
+
+.active #model {
+  position: absolute;
+  top: 50px;
+  left: 50px;
+  right: 50px;
+}
+</style>

@@ -2,24 +2,34 @@
   <v-card>
     <v-card-title>
       <v-avatar>
-        <img :src="profile.picture" :alt="profile.name" />
+        <img :src="picture" :alt="name" />
       </v-avatar>
       <v-card-title>
-        {{ profile.name }}
+        {{ name }}
       </v-card-title>
     </v-card-title>
     <v-card-subtitle>
-      {{ profile.email }}
+      {{ email }}
     </v-card-subtitle>
   </v-card>
 </template>
 
 <script>
 export default {
-  computed: {
-    profile() {
-      return this.$auth.$state.user
-    },
+  data: () => ({
+    name: '',
+    picture: '',
+    email: '',
+  }),
+  mounted() {
+    const profile = this.$auth.$state.user
+    if (profile) {
+      Object.keys(profile).forEach((i) => {
+        this[i] = profile[i]
+      })
+    } else {
+      this.$router.replace('/')
+    }
   },
 }
 </script>
