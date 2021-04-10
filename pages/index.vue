@@ -8,69 +8,61 @@
         <v-card-title class="headline">Virtual Host System</v-card-title>
         <v-card-text>
           <p>
-            Vuetify is a progressive Material Design component framework for
-            Vue.js. It was designed to empower developers to create amazing
-            applications.
+            Virtual Host System(VHS) is the websites hosting system for
+            education.
           </p>
           <p>
-            For more information on Vuetify, check out the
+            Project information:
             <a
-              href="https://vuetifyjs.com"
+              href="https://github.com/supersonictw?tab=projects&q=vhs"
               target="_blank"
               rel="noopener noreferrer"
+              title="GitHub Project"
             >
-              documentation </a
-            >.
+              GitHub
+            </a>
           </p>
           <p>
-            If you have questions, please join the official
+            Frontend Source:
             <a
-              href="https://chat.vuetifyjs.com/"
+              href="https://github.com/supersonictw/virtual_host-client"
               target="_blank"
               rel="noopener noreferrer"
-              title="chat"
+              title="Repository"
             >
-              discord </a
-            >.
+              Repository
+            </a>
           </p>
           <p>
-            Find a bug? Report it on the github
+            Backend Source:
             <a
-              href="https://github.com/vuetifyjs/vuetify/issues"
+              href="https://github.com/supersonictw/virtual_host-server"
               target="_blank"
               rel="noopener noreferrer"
-              title="contribute"
+              title="Repository"
             >
-              issue board </a
-            >.
+              Repository
+            </a>
           </p>
           <p>
-            Thank you for developing with Vuetify and I look forward to bringing
-            more exciting features in the future.
+            The project is inspired by
+            <a
+              href="https://www.nkust.edu.tw"
+              target="_blank"
+              rel="noopener noreferrer"
+              title="NKUST"
+            >
+              National Kaohsiung University of Science and Technology
+            </a>
+            .
           </p>
-          <div class="text-xs-right">
-            <em><small>&mdash; John Leider</small></em>
-          </div>
-          <hr class="my-3" />
-          <a
-            href="https://nuxtjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Nuxt Documentation
-          </a>
-          <br />
-          <a
-            href="https://github.com/nuxt/nuxt.js"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Nuxt GitHub
-          </a>
         </v-card-text>
         <v-card-actions>
           <v-spacer />
-          <v-btn color="primary" nuxt to="/inspire"> Continue </v-btn>
+          <v-btn v-if="!$auth.$state.loggedIn" color="primary" nuxt to="/login">
+            Continue
+          </v-btn>
+          <v-btn v-else color="primary" nuxt to="/user"> Continue </v-btn>
         </v-card-actions>
       </v-card>
     </v-col>

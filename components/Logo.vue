@@ -1,5 +1,5 @@
 <template>
-  <div class="VueToNuxtLogo">
+  <div class="Logo">
     <div class="Triangle Triangle--two" />
     <div class="Triangle Triangle--one" />
     <div class="Triangle Triangle--three" />
@@ -8,14 +8,15 @@
 </template>
 
 <style>
-.VueToNuxtLogo {
+.Logo {
   display: inline-block;
   animation: turn 2s linear forwards 1s;
-  transform: rotateX(180deg);
+  transform: rotateX(0deg);
   position: relative;
   overflow: hidden;
   height: 180px;
   width: 245px;
+  margin: 30px;
 }
 
 .Triangle {
@@ -29,7 +30,7 @@
 .Triangle--one {
   border-left: 105px solid transparent;
   border-right: 105px solid transparent;
-  border-bottom: 180px solid #41b883;
+  border-bottom: 180px solid #114453;
 }
 
 .Triangle--two {
@@ -38,7 +39,7 @@
   animation: goright 0.5s linear forwards 3.5s;
   border-left: 87.5px solid transparent;
   border-right: 87.5px solid transparent;
-  border-bottom: 150px solid #3b8070;
+  border-bottom: 150px solid #217786;
 }
 
 .Triangle--three {
@@ -47,7 +48,7 @@
   animation: goright 0.5s linear forwards 3.5s;
   border-left: 70px solid transparent;
   border-right: 70px solid transparent;
-  border-bottom: 120px solid #35495e;
+  border-bottom: 120px solid #ff7b14;
 }
 
 .Triangle--four {
@@ -61,19 +62,19 @@
 
 @keyframes turn {
   100% {
-    transform: rotateX(0deg);
+    transform: rotateX(180deg) rotate(45deg);
   }
 }
 
 @keyframes godown {
   100% {
-    top: 180px;
+    top: 110px;
   }
 }
 
 @keyframes goright {
   100% {
-    left: 70px;
+    left: 30px;
   }
 }
 </style>

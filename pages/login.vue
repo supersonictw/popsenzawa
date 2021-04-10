@@ -1,7 +1,10 @@
 <template>
   <v-row>
     <v-col class="text-center">
-      <v-btn @click="login">Authorize with Google</v-btn>
+      <v-btn x-large @click="login">
+        <v-icon left> mdi-google </v-icon>
+        Authorize with Google
+      </v-btn>
     </v-col>
   </v-row>
 </template>
