@@ -21,7 +21,7 @@
       </v-row>
       <v-row>
         <v-col>
-          <v-list v-if="directory.length">
+          <v-list v-if="directory.length || cwd.length">
             <v-list-item v-show="cwd.length" @click="enter('..')">
               <v-list-item-icon>
                 <v-icon>mdi-reply</v-icon>
