@@ -167,7 +167,8 @@ export default {
       const targetPath = this.cwd.concat(target).join('/')
       const result = await this.$axios.$get(`user/${targetPath}`)
       if (!(result.status === 200 && result.data.status)) return
-      const blob = new Blob([btoa(result.data.data)], { type: 'octet/stream' })
+      const buff = Buffer.from(result.data.data, 'base64')
+      const blob = new Blob([buff], { type: 'octet/stream' })
       const link = document.createElement('a')
       link.download = target
       link.href = window.URL.createObjectURL(blob)
