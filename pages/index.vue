@@ -1,5 +1,6 @@
 <template>
   <v-row justify="center" align="center">
+    <Notice :text="notice" />
     <v-col cols="12" sm="8" md="6">
       <div class="text-center">
         <logo />
@@ -71,11 +72,27 @@
 
 <script>
 import Logo from '~/components/Logo.vue'
+import Notice from '~/components/user/Notice'
 
 export default {
-  name: 'Introduce',
+  name: 'Introduction',
   components: {
     Logo,
+    Notice,
+  },
+  data: () => ({
+    notice: '',
+  }),
+  head: {
+    title: 'Introduction',
+  },
+  mounted() {
+    this.$axios.get('profile').catch(() => {
+      this.notice = 'Authentication failed'
+      if (this.$auth.$state.loggedIn) {
+        this.$auth.logout()
+      }
+    })
   },
 }
 </script>

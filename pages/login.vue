@@ -11,8 +11,11 @@
 
 <script>
 export default {
+  name: 'Login',
+  head: {
+    title: 'Login',
+  },
   methods: {
-    name: 'Login',
     login() {
       this.$auth.loginWith('google')
     },

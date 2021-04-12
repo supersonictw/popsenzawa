@@ -15,5 +15,19 @@
 <script>
 export default {
   name: 'NewDirectoryModel',
+  props: {
+    path: {
+      type: String,
+      required: true,
+    },
+  },
+  methods: {
+    async mkdir(target) {
+      if (this.removing) return
+      const targetPath = this.cwd.concat(target).join('/')
+      await this.$axios.$post(`user/${targetPath}`)
+      this.$emit('success')
+    },
+  },
 }
 </script>

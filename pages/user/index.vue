@@ -1,5 +1,6 @@
 <template>
   <div :class="activeStatus">
+    <Notice :text="notice" />
     <div id="interactive">
       <v-row>
         <v-col>
@@ -67,8 +68,13 @@
       </v-row>
     </div>
     <div id="model">
-      <NewDirectoryModel v-if="active === 1" @cancel="active = 0" />
-      <NewFileModel v-else-if="active === 2" @cancel="active = 0" />
+      <NewDirectoryModel v-if="active === 1" :path="cwd" @cancel="active = 0" />
+      <NewFileModel
+        v-else-if="active === 2"
+        :path="cwd"
+        @success="active = 0"
+        @cancel="active = 0"
+      />
     </div>
   </div>
 </template>
@@ -80,6 +86,7 @@ import filesize from 'filesize'
 import Profile from '~/components/user/Profile'
 import NewDirectoryModel from '~/components/user/NewDirectoryModel'
 import NewFileModel from '~/components/user/NewFileModel'
+import Notice from '~/components/user/Notice'
 
 export default {
   name: 'Dashboard',
@@ -87,20 +94,34 @@ export default {
     Profile,
     NewDirectoryModel,
     NewFileModel,
+    Notice,
   },
   data: () => ({
     cwd: [],
     directory: [],
     removing: false,
     active: 0,
+    notice: '',
   }),
+  head: {
+    title: 'Dashboard',
+  },
   computed: {
     activeStatus() {
       return this.active ? 'active' : ''
     },
   },
   mounted() {
-    this.enter()
+    this.$axios
+      .get('profile')
+      .then(() => this.enter())
+      .catch(() => {
+        this.notice = 'Authentication failed'
+        if (this.$auth.$state.loggedIn) {
+          this.$auth.logout()
+        }
+        this.$router.push('/')
+      })
   },
   methods: {
     action(item) {
@@ -174,7 +195,21 @@ export default {
 .active #model {
   position: absolute;
   top: 50px;
-  left: 50px;
-  right: 50px;
+  left: 300px;
+  right: 300px;
+}
+
+@media screen and (max-width: 1200px) {
+  .active #model {
+    left: 100px;
+    right: 100px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .active #model {
+    left: 50px;
+    right: 50px;
+  }
 }
 </style>

@@ -7,8 +7,8 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: '%s - virtual_host-client',
-    title: 'virtual_host-client',
+    titleTemplate: '%s - Virtual Host System',
+    title: 'Loading',
     htmlAttrs: {
       lang: 'en',
     },

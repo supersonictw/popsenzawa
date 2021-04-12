@@ -2,7 +2,7 @@
   <v-card>
     <v-card-title>New File</v-card-title>
     <v-card-text>
-      <v-text-field></v-text-field>
+      <v-file-input />
     </v-card-text>
     <v-card-actions>
       <v-spacer />
@@ -15,5 +15,21 @@
 <script>
 export default {
   name: 'NewFileModel',
+  props: {
+    path: {
+      type: String,
+      required: true,
+    },
+  },
+  methods: {
+    async upload(target) {
+      if (this.removing) return
+      const targetPath = this.cwd.concat(target).join('/')
+      const data = new FormData()
+      data.append('file', '')
+      await this.$axios.$put(`user/${targetPath}`, data)
+      this.$emit('success')
+    },
+  },
 }
 </script>

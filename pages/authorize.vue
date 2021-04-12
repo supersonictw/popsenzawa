@@ -9,8 +9,8 @@
 <script>
 export default {
   name: 'Authorize',
-  async mounted() {
-    await this.$router.push('/')
+  head: {
+    title: 'Authorize',
   },
 }
 </script>
