@@ -2,7 +2,7 @@
   <v-card>
     <v-card-title>New Directory</v-card-title>
     <v-card-text>
-      <v-text-field v-model="target"></v-text-field>
+      <v-text-field v-model="target" autofocus></v-text-field>
     </v-card-text>
     <v-card-actions>
       <v-spacer />
