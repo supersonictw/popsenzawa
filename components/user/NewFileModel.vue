@@ -16,15 +16,15 @@
 export default {
   name: 'NewFileModel',
   props: {
-    path: {
-      type: String,
+    cwd: {
+      type: Array,
       required: true,
     },
   },
   methods: {
-    async upload(target) {
-      if (this.removing) return
-      const targetPath = this.cwd.concat(target).join('/')
+    async upload(filename) {
+      if (!filename) return
+      const targetPath = this.cwd.concat(filename).join('/')
       const data = new FormData()
       data.append('file', '')
       await this.$axios.$put(`user/${targetPath}`, data)

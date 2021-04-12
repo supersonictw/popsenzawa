@@ -1,6 +1,6 @@
 <template>
   <v-row justify="center" align="center">
-    <Notice :text="notice" />
+    <Notice v-show="notice" :text="notice" />
     <v-col cols="12" sm="8" md="6">
       <div class="text-center">
         <logo />

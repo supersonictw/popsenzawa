@@ -1,6 +1,6 @@
 <template>
   <div :class="activeStatus">
-    <Notice :text="notice" />
+    <Notice v-show="notice" :text="notice" />
     <div id="interactive">
       <v-row>
         <v-col>
@@ -68,11 +68,16 @@
       </v-row>
     </div>
     <div id="model">
-      <NewDirectoryModel v-if="active === 1" :path="cwd" @cancel="active = 0" />
+      <NewDirectoryModel
+        v-if="active === 1"
+        :cwd="cwd"
+        @success="action"
+        @cancel="active = 0"
+      />
       <NewFileModel
         v-else-if="active === 2"
-        :path="cwd"
-        @success="active = 0"
+        :cwd="cwd"
+        @success="action"
         @cancel="active = 0"
       />
     </div>
@@ -125,6 +130,11 @@ export default {
   },
   methods: {
     action(item) {
+      if (!item) {
+        this.active = 0
+        this.enter()
+        return
+      }
       if (item.type) {
         this.enter(item.name)
       } else {
@@ -168,8 +178,8 @@ export default {
       this.removing = true
       const targetPath = this.cwd.concat(target).join('/')
       await this.$axios.$delete(`user/${targetPath}`)
-      await this.enter()
       this.removing = false
+      await this.enter()
     },
     sizeReadable(fileSize) {
       return filesize(fileSize)
