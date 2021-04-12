@@ -2,12 +2,12 @@
   <v-card>
     <v-card-title>New File</v-card-title>
     <v-card-text>
-      <v-file-input />
+      <v-file-input v-model="target" label="Select the file to upload" />
     </v-card-text>
     <v-card-actions>
       <v-spacer />
       <v-btn class="grey" @click="$emit('cancel')">Cancel</v-btn>
-      <v-btn class="amber darken-3">Create</v-btn>
+      <v-btn class="amber darken-3" @click="upload">Upload</v-btn>
     </v-card-actions>
   </v-card>
 </template>
@@ -21,12 +21,16 @@ export default {
       required: true,
     },
   },
+  data: () => ({
+    target: null,
+  }),
   methods: {
-    async upload(filename) {
-      if (!filename) return
+    async upload() {
+      if (!this.target) return
+      const filename = this.target.name
       const targetPath = this.cwd.concat(filename).join('/')
       const data = new FormData()
-      data.append('file', '')
+      data.append('file', this.target)
       await this.$axios.$put(`user/${targetPath}`, data)
       this.$emit('success')
     },
