@@ -13,6 +13,11 @@ export default {
     title: 'Authorize',
   },
   mounted() {
+    if (location.hash.length <= 1) return
+    const hashValue = location.hash.substring(1)
+    const params = new URLSearchParams(hashValue)
+    const accessToken = params.get('access_token')
+    localStorage.setItem('vhs_auth', accessToken)
     this.$router.replace('/')
   },
 }

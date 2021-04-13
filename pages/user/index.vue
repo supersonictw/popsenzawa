@@ -117,6 +117,12 @@ export default {
     },
   },
   mounted() {
+    const accessToken = localStorage.getItem('vhs_auth')
+    if (!accessToken) {
+      this.$router.push('/')
+      return
+    }
+    this.$axios.setHeader('Authorization', accessToken)
     this.$axios
       .get('profile')
       .then(() => this.enter())
@@ -124,6 +130,7 @@ export default {
         this.notice = 'Authentication failed'
         if (this.$auth.$state.loggedIn) {
           this.$auth.logout()
+          localStorage.removeItem('vhs_auth')
         }
         this.$router.push('/')
       })
