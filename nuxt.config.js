@@ -75,7 +75,9 @@ export default {
       middleware: ['auth'],
     },
     redirect: {
-      callback: '/authorize',
+      callback: process.env.BASE_URL
+        ? process.env.BASE_URL + '/authorize'
+        : '/authorize',
     },
     strategies: {
       google: {
