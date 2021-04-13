@@ -1,7 +1,7 @@
 <template>
   <v-app dark>
     <v-navigation-drawer v-model="drawer" fixed app>
-      <v-list v-if="!$auth.$state.loggedIn">
+      <v-list v-if="!$store.state.profile.identity">
         <v-list-item nuxt to="/">
           <v-list-item-action>
             <v-icon>mdi-star</v-icon>
@@ -69,6 +69,7 @@ export default {
   },
   methods: {
     logout() {
+      localStorage.removeItem('vhs_auth')
       this.$auth.logout()
     },
   },

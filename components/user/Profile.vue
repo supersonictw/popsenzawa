@@ -22,7 +22,7 @@ export default {
     email: '',
   }),
   mounted() {
-    const profile = this.$auth.$state.user
+    const profile = this.$store.state.profile
     if (profile) {
       Object.keys(profile).forEach((i) => {
         this[i] = profile[i]

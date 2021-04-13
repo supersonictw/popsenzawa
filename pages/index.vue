@@ -60,7 +60,12 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer />
-          <v-btn v-if="!$auth.$state.loggedIn" color="primary" nuxt to="/login">
+          <v-btn
+            v-if="!$store.state.profile.identity"
+            color="primary"
+            nuxt
+            to="/login"
+          >
             Continue
           </v-btn>
           <v-btn v-else color="primary" nuxt to="/user"> Continue </v-btn>
@@ -93,13 +98,18 @@ export default {
       return
     }
     this.$axios.setHeader('Authorization', `Bearer ${accessToken}`)
-    this.$axios.get('profile').catch(() => {
-      this.notice = 'Authentication failed'
-      if (this.$auth.$state.loggedIn) {
+    this.$axios
+      .get('profile')
+      .then((resp) => {
+        this.$store.commit('setProfile', resp.data.data)
+      })
+      .catch(() => {
         localStorage.removeItem('vhs_auth')
-        this.$auth.logout()
-      }
-    })
+        this.notice = 'Authentication failed'
+        if (this.$store.state.profile.identity) {
+          this.$auth.logout()
+        }
+      })
   },
 }
 </script>

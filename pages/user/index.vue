@@ -125,11 +125,14 @@ export default {
     this.$axios.setHeader('Authorization', `Bearer ${accessToken}`)
     this.$axios
       .get('profile')
-      .then(() => this.enter())
+      .then((resp) => {
+        this.$store.commit('setProfile', resp.data.data)
+        this.enter()
+      })
       .catch(() => {
+        localStorage.removeItem('vhs_auth')
         this.notice = 'Authentication failed'
-        if (this.$auth.$state.loggedIn) {
-          localStorage.removeItem('vhs_auth')
+        if (this.$store.state.profile.identity) {
           this.$auth.logout()
         }
         this.$router.push('/')
