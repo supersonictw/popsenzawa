@@ -1,5 +1,4 @@
 import colors from 'vuetify/es5/util/colors'
-require('dotenv').config()
 
 export default {
   // Target: https://go.nuxtjs.dev/config-target
@@ -59,8 +58,11 @@ export default {
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
     '@nuxtjs/auth',
-    '@nuxtjs/dotenv',
   ],
+
+  router: {
+    base: process.env.BASE_URL || '/',
+  },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
@@ -70,7 +72,6 @@ export default {
 
   auth: {
     router: {
-      base: process.env.BASE_URL || '/',
       middleware: ['auth'],
     },
     redirect: {
