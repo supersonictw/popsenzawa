@@ -64,7 +64,6 @@ export default {
   axios: {
     baseURL: process.env.BACKEND_URI,
     browserBaseURL: process.env.BACKEND_URI,
-    credentials: true,
   },
 
   auth: {
