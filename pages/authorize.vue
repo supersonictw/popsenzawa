@@ -12,5 +12,8 @@ export default {
   head: {
     title: 'Authorize',
   },
+  mounted() {
+    this.$router.replace('/')
+  },
 }
 </script>
