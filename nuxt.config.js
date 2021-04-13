@@ -1,5 +1,4 @@
 import colors from 'vuetify/es5/util/colors'
-import config from './vhs.config.json'
 
 export default {
   // Target: https://go.nuxtjs.dev/config-target
@@ -63,8 +62,8 @@ export default {
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    baseURL: config.backendURI,
-    browserBaseURL: config.backendURI,
+    baseURL: process.env.BACKEND_URI,
+    browserBaseURL: process.env.BACKEND_URI,
     credentials: true,
   },
 
@@ -77,7 +76,7 @@ export default {
     },
     strategies: {
       google: {
-        client_id: config.googleOAuthClientId,
+        client_id: process.env.GOOGLE_OAUTH_CLIENT_ID,
       },
     },
   },
