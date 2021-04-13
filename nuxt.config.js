@@ -77,8 +77,7 @@ export default {
     },
     strategies: {
       google: {
-        client_id:
-          '660152913885-4jsl1dcuh0ridr8iugso78kc279ht5d3.apps.googleusercontent.com',
+        client_id: config.googleOAuthClientId,
       },
     },
   },
@@ -104,4 +103,9 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
+
+  // Optional Configs
+  env: {
+    baseURL: process.env.BASE_URL,
+  },
 }
