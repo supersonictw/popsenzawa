@@ -69,6 +69,7 @@ export default {
 
   auth: {
     router: {
+      base: process.env.BASE_URL || '/',
       middleware: ['auth'],
     },
     redirect: {
@@ -102,9 +103,4 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
-
-  // Optional Configs
-  env: {
-    baseURL: process.env.BASE_URL,
-  },
 }
