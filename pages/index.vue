@@ -62,13 +62,22 @@
           <v-spacer />
           <v-btn
             v-if="!$store.state.profile.identity"
-            color="primary"
+            :disabled="!$store.state.loaded"
+            color="amber darken-3"
             nuxt
             to="/login"
           >
             Continue
           </v-btn>
-          <v-btn v-else color="primary" nuxt to="/user"> Continue </v-btn>
+          <v-btn
+            v-else
+            color="amber darken-3"
+            :disabled="!$store.state.loaded"
+            nuxt
+            to="/user"
+          >
+            Continue
+          </v-btn>
         </v-card-actions>
       </v-card>
     </v-col>
@@ -94,7 +103,7 @@ export default {
   mounted() {
     const accessToken = localStorage.getItem('vhs_auth')
     if (!accessToken) {
-      this.$router.push('/')
+      this.$store.commit('setLoaded')
       return
     }
     this.$axios.setHeader('Authorization', `Bearer ${accessToken}`)
@@ -102,6 +111,7 @@ export default {
       .get('profile')
       .then((resp) => {
         this.$store.commit('setProfile', resp.data.data)
+        this.$store.commit('setLoaded')
       })
       .catch(() => {
         localStorage.removeItem('vhs_auth')
@@ -109,6 +119,7 @@ export default {
         if (this.$store.state.profile.identity) {
           this.$auth.logout()
         }
+        this.$store.commit('setLoaded')
       })
   },
 }

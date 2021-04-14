@@ -1,7 +1,7 @@
 <template>
   <div :class="activeStatus">
     <Notice v-show="notice" :text="notice" />
-    <div id="interactive">
+    <div v-if="$store.state.loaded" id="interactive">
       <v-row>
         <v-col>
           <Profile />
@@ -67,6 +67,16 @@
         </v-col>
       </v-row>
     </div>
+    <div v-else>
+      <v-row>
+        <v-col class="text-center">
+          <v-progress-circular
+            indeterminate
+            color="amber darken-3"
+          ></v-progress-circular>
+        </v-col>
+      </v-row>
+    </div>
     <div id="model">
       <NewDirectoryModel
         v-if="active === 1"
@@ -127,6 +137,7 @@ export default {
       .get('profile')
       .then((resp) => {
         this.$store.commit('setProfile', resp.data.data)
+        this.$store.commit('setLoaded')
         this.enter()
       })
       .catch(() => {
