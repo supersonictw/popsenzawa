@@ -80,7 +80,7 @@ export default {
   methods: {
     logout() {
       localStorage.removeItem('vhs_auth')
-      this.$auth.logout()
+      location.reload()
     },
   },
 }

@@ -116,9 +116,6 @@ export default {
       .catch(() => {
         localStorage.removeItem('vhs_auth')
         this.notice = 'Authentication failed'
-        if (this.$store.state.profile.identity) {
-          this.$auth.logout()
-        }
         this.$store.commit('setLoaded')
       })
   },
