@@ -206,7 +206,7 @@ export default {
     timeReadable(nanoTimestamp) {
       const microTimestamp = nanoTimestamp / 1000000
       if (moment.now() - microTimestamp < 86400000) {
-        return moment(microTimestamp).startOf('day').fromNow()
+        return moment(microTimestamp).fromNow()
       } else {
         return moment(microTimestamp).format()
       }
