@@ -30,24 +30,29 @@
                 <v-list-item-title>..</v-list-item-title>
               </v-list-item-content>
             </v-list-item>
-            <v-list-item
-              v-for="(item, index) in directory"
-              :key="index"
-              @click="action(item)"
-            >
-              <v-list-item-icon>
-                <v-icon v-if="item.type">mdi-folder</v-icon>
-                <v-icon v-else>mdi-file</v-icon>
-              </v-list-item-icon>
-              <v-list-item-content>
-                <v-list-item-title>{{ item.name }}</v-list-item-title>
-                <v-list-item-subtitle>
-                  {{ sizeReadable(item.size) }}
-                  {{ timeReadable(item.lastModified) }}
-                </v-list-item-subtitle>
-              </v-list-item-content>
-              <v-list-item-action @click="remove(item.name)">
-                <v-icon>mdi-delete</v-icon>
+            <v-list-item v-for="(item, index) in directory" :key="index">
+              <v-list-item class="mr-2" @click="action(item)">
+                <v-list-item-icon>
+                  <v-icon v-if="item.type">mdi-folder</v-icon>
+                  <v-icon v-else>mdi-file</v-icon>
+                </v-list-item-icon>
+                <v-list-item-content>
+                  <v-list-item-title>{{ item.name }}</v-list-item-title>
+                  <v-list-item-subtitle>
+                    {{ sizeReadable(item.size) }}
+                    {{ timeReadable(item.lastModified) }}
+                  </v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
+              <v-list-item-action>
+                <v-btn rounded @click="rename(item.name)">
+                  <v-icon>mdi-pen</v-icon>
+                </v-btn>
+              </v-list-item-action>
+              <v-list-item-action>
+                <v-btn rounded @click="remove(item.name)">
+                  <v-icon>mdi-delete</v-icon>
+                </v-btn>
               </v-list-item-action>
             </v-list-item>
           </v-list>
@@ -90,6 +95,13 @@
         @success="action"
         @cancel="active = 0"
       />
+      <RenameModel
+        v-else-if="active === 3"
+        :cwd="cwd"
+        :origin="editing"
+        @success="action"
+        @cancel="active = 0"
+      />
     </div>
   </div>
 </template>
@@ -101,6 +113,7 @@ import filesize from 'filesize'
 import Profile from '~/components/user/Profile'
 import NewDirectoryModel from '~/components/user/NewDirectoryModel'
 import NewFileModel from '~/components/user/NewFileModel'
+import RenameModel from '~/components/user/RenameModel'
 import Notice from '~/components/user/Notice'
 
 export default {
@@ -109,11 +122,13 @@ export default {
     Profile,
     NewDirectoryModel,
     NewFileModel,
+    RenameModel,
     Notice,
   },
   data: () => ({
     cwd: [],
     directory: [],
+    editing: '',
     removing: false,
     active: 0,
     notice: '',
@@ -192,6 +207,10 @@ export default {
       link.href = window.URL.createObjectURL(blob)
       link.click()
       window.URL.revokeObjectURL(link.href)
+    },
+    rename(target) {
+      this.editing = target
+      this.active = 3
     },
     async remove(target) {
       this.removing = true
