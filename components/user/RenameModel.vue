@@ -33,6 +33,9 @@ export default {
   data: () => ({
     target: '',
   }),
+  mounted() {
+    this.target = this.origin
+  },
   methods: {
     async rename() {
       if (!this.target) return
