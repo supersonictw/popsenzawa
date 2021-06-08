@@ -31,7 +31,7 @@
               </v-list-item-content>
             </v-list-item>
             <v-list-item v-for="(item, index) in directory" :key="index">
-              <v-list-item class="mr-2" @click="action(item)">
+              <v-list-item class="mr-2" @click="get(item)">
                 <v-list-item-icon>
                   <v-icon v-if="item.type">mdi-folder</v-icon>
                   <v-icon v-else>mdi-file</v-icon>
@@ -45,14 +45,27 @@
                 </v-list-item-content>
               </v-list-item>
               <v-list-item-action>
-                <v-btn rounded @click="rename(item.name)">
-                  <v-icon>mdi-pen</v-icon>
-                </v-btn>
-              </v-list-item-action>
-              <v-list-item-action>
-                <v-btn rounded @click="remove(item.name)">
-                  <v-icon>mdi-delete</v-icon>
-                </v-btn>
+                <v-menu offset-y>
+                  <template #activator="{ on, attrs }">
+                    <v-btn title="Remove" rounded v-bind="attrs" v-on="on">
+                      <v-icon>mdi-more</v-icon>
+                    </v-btn>
+                  </template>
+                  <v-list>
+                    <v-list-item @click="rename(item.name)">
+                      <v-list-item-icon>
+                        <v-icon>mdi-pen</v-icon>
+                      </v-list-item-icon>
+                      <v-list-item-content>Rename</v-list-item-content>
+                    </v-list-item>
+                    <v-list-item @click="remove(item.name)">
+                      <v-list-item-icon>
+                        <v-icon>mdi-delete</v-icon>
+                      </v-list-item-icon>
+                      <v-list-item-content>Remove</v-list-item-content>
+                    </v-list-item>
+                  </v-list>
+                </v-menu>
               </v-list-item-action>
             </v-list-item>
           </v-list>
@@ -86,20 +99,27 @@
       <NewDirectoryModel
         v-if="active === 1"
         :cwd="cwd"
-        @success="action"
+        @success="get"
         @cancel="active = 0"
       />
       <NewFileModel
         v-else-if="active === 2"
         :cwd="cwd"
-        @success="action"
+        @success="get"
         @cancel="active = 0"
       />
       <RenameModel
         v-else-if="active === 3"
         :cwd="cwd"
         :origin="editing"
-        @success="action"
+        @success="get"
+        @cancel="active = 0"
+      />
+      <RemoveModel
+        v-else-if="active === 4"
+        :cwd="cwd"
+        :target="editing"
+        @success="get"
         @cancel="active = 0"
       />
     </div>
@@ -114,6 +134,7 @@ import Profile from '~/components/user/Profile'
 import NewDirectoryModel from '~/components/user/NewDirectoryModel'
 import NewFileModel from '~/components/user/NewFileModel'
 import RenameModel from '~/components/user/RenameModel'
+import RemoveModel from '~/components/user/RemoveModel'
 import Notice from '~/components/user/Notice'
 
 export default {
@@ -123,6 +144,7 @@ export default {
     NewDirectoryModel,
     NewFileModel,
     RenameModel,
+    RemoveModel,
     Notice,
   },
   data: () => ({
@@ -162,7 +184,7 @@ export default {
       })
   },
   methods: {
-    action(item) {
+    get(item) {
       if (!item) {
         this.active = 0
         this.enter()
@@ -212,12 +234,9 @@ export default {
       this.editing = target
       this.active = 3
     },
-    async remove(target) {
-      this.removing = true
-      const targetPath = this.cwd.concat(target).join('/')
-      await this.$axios.$delete(`user/${targetPath}`)
-      this.removing = false
-      await this.enter()
+    remove(target) {
+      this.editing = target
+      this.active = 4
     },
     sizeReadable(fileSize) {
       return filesize(fileSize)
