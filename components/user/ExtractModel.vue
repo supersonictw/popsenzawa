@@ -1,20 +1,20 @@
 <template>
   <v-card>
-    <v-card-title>Remove</v-card-title>
+    <v-card-title>Extract</v-card-title>
     <v-card-text>
-      "{{ target }}" will be removed and deleted forever.
+      The archive "{{ target }}" will be extract to current directory.
     </v-card-text>
     <v-card-actions>
       <v-spacer />
       <v-btn class="grey" @click="$emit('cancel')">Cancel</v-btn>
-      <v-btn class="amber darken-3" @click="remove">Remove</v-btn>
+      <v-btn class="amber darken-3" @click="extract">Extract</v-btn>
     </v-card-actions>
   </v-card>
 </template>
 
 <script>
 export default {
-  name: 'RemoveModel',
+  name: 'ExtractModel',
   props: {
     target: {
       type: String,
@@ -26,10 +26,10 @@ export default {
     },
   },
   methods: {
-    async remove() {
+    async extract() {
       if (!this.target) return
       const targetPath = this.cwd.concat(this.target).join('/')
-      await this.$axios.$delete(`user/${targetPath}`)
+      await this.$axios.$delete(`zip/${targetPath}`)
       this.removing = false
       this.$emit('success')
     },

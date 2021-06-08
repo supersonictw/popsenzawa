@@ -4,7 +4,7 @@
     <v-card-text>
       <v-text-field
         v-model="target"
-        label="Type..."
+        label="Type new name..."
         autofocus
         @keydown.enter="rename"
       />

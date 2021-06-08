@@ -1,28 +1,33 @@
 <template>
   <v-card>
-    <v-card-title>New Directory</v-card-title>
+    <v-card-title>Compress</v-card-title>
     <v-card-text>
       <v-text-field
         v-model="target"
-        label="Type the name of new directory..."
+        label="Type the name of new archive"
+        append-outer-icon=".zip"
         autofocus
-        @keydown.enter="mkdir"
+        @keydown.enter="compress"
       />
     </v-card-text>
     <v-card-actions>
       <v-spacer />
       <v-btn class="grey" @click="$emit('cancel')">Cancel</v-btn>
-      <v-btn class="amber darken-3" @click="mkdir">Create</v-btn>
+      <v-btn class="amber darken-3" @click="compress">Compress</v-btn>
     </v-card-actions>
   </v-card>
 </template>
 
 <script>
 export default {
-  name: 'NewDirectoryModel',
+  name: 'CompressModel',
   props: {
     cwd: {
       type: Array,
+      required: true,
+    },
+    origin: {
+      type: String,
       required: true,
     },
   },
@@ -30,10 +35,12 @@ export default {
     target: '',
   }),
   methods: {
-    async mkdir() {
-      if (!this.target) return
+    async compress() {
+      if (!(this.target && this.origin)) return
       const targetPath = this.cwd.concat(this.target).join('/')
-      await this.$axios.$post(`user/${targetPath}`)
+      const data = new URLSearchParams()
+      data.set('origin', this.origin)
+      await this.$axios.$post(`zip/${targetPath}.zip`, data)
       this.$emit('success')
     },
   },

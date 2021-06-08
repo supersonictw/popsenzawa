@@ -45,13 +45,28 @@
                 </v-list-item-content>
               </v-list-item>
               <v-list-item-action>
-                <v-menu offset-y>
+                <v-menu :disabled="latch" offset-y>
                   <template #activator="{ on, attrs }">
                     <v-btn title="Remove" rounded v-bind="attrs" v-on="on">
                       <v-icon>mdi-more</v-icon>
                     </v-btn>
                   </template>
                   <v-list>
+                    <v-list-item @click="compress(item.name)">
+                      <v-list-item-icon>
+                        <v-icon>mdi-zip-box</v-icon>
+                      </v-list-item-icon>
+                      <v-list-item-content>Compress</v-list-item-content>
+                    </v-list-item>
+                    <v-list-item
+                      v-if="item.name.endsWith('.zip')"
+                      @click="extract(item.name)"
+                    >
+                      <v-list-item-icon>
+                        <v-icon>mdi-zip-box-outline</v-icon>
+                      </v-list-item-icon>
+                      <v-list-item-content>Extract</v-list-item-content>
+                    </v-list-item>
                     <v-list-item @click="rename(item.name)">
                       <v-list-item-icon>
                         <v-icon>mdi-pen</v-icon>
@@ -100,27 +115,41 @@
         v-if="active === 1"
         :cwd="cwd"
         @success="get"
-        @cancel="active = 0"
+        @cancel="cancel"
       />
       <NewFileModel
         v-else-if="active === 2"
         :cwd="cwd"
         @success="get"
-        @cancel="active = 0"
+        @cancel="cancel"
       />
       <RenameModel
         v-else-if="active === 3"
         :cwd="cwd"
         :origin="editing"
         @success="get"
-        @cancel="active = 0"
+        @cancel="cancel"
       />
       <RemoveModel
         v-else-if="active === 4"
         :cwd="cwd"
         :target="editing"
         @success="get"
-        @cancel="active = 0"
+        @cancel="cancel"
+      />
+      <CompressModel
+        v-else-if="active === 5"
+        :cwd="cwd"
+        :origin="editing"
+        @success="get"
+        @cancel="cancel"
+      />
+      <ExtractModel
+        v-else-if="active === 6"
+        :cwd="cwd"
+        :target="editing"
+        @success="get"
+        @cancel="cancel"
       />
     </div>
   </div>
@@ -135,6 +164,8 @@ import NewDirectoryModel from '~/components/user/NewDirectoryModel'
 import NewFileModel from '~/components/user/NewFileModel'
 import RenameModel from '~/components/user/RenameModel'
 import RemoveModel from '~/components/user/RemoveModel'
+import CompressModel from '~/components/user/CompressModel'
+import ExtractModel from '~/components/user/ExtractModel'
 import Notice from '~/components/user/Notice'
 
 export default {
@@ -145,13 +176,15 @@ export default {
     NewFileModel,
     RenameModel,
     RemoveModel,
+    CompressModel,
+    ExtractModel,
     Notice,
   },
   data: () => ({
     cwd: [],
     directory: [],
     editing: '',
-    removing: false,
+    latch: false,
     active: 0,
     notice: '',
   }),
@@ -186,7 +219,7 @@ export default {
   methods: {
     get(item) {
       if (!item) {
-        this.active = 0
+        this.cancel()
         this.enter()
         return
       }
@@ -197,7 +230,7 @@ export default {
       }
     },
     async enter(target) {
-      if (this.removing) return
+      if (this.latch) return
       if (target) {
         if (target !== '..') {
           this.cwd.push(target)
@@ -218,7 +251,7 @@ export default {
       ]
     },
     async download(target) {
-      if (this.removing) return
+      if (this.latch) return
       const targetPath = this.cwd.concat(target).join('/')
       const result = await this.$axios.$get(`user/${targetPath}`)
       if (!(result.status === 200 && result.data.status)) return
@@ -231,12 +264,29 @@ export default {
       window.URL.revokeObjectURL(link.href)
     },
     rename(target) {
+      this.latch = true
       this.editing = target
       this.active = 3
     },
     remove(target) {
+      this.latch = true
       this.editing = target
       this.active = 4
+    },
+    compress(target) {
+      this.latch = true
+      this.editing = target
+      this.active = 5
+    },
+    extract(target) {
+      this.latch = true
+      this.editing = target
+      this.active = 6
+    },
+    cancel() {
+      this.latch = false
+      this.editing = null
+      this.active = 0
     },
     sizeReadable(fileSize) {
       return filesize(fileSize)
