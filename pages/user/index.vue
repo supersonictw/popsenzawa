@@ -52,12 +52,6 @@
                     </v-btn>
                   </template>
                   <v-list>
-                    <v-list-item @click="compress(item.name)">
-                      <v-list-item-icon>
-                        <v-icon>mdi-zip-box</v-icon>
-                      </v-list-item-icon>
-                      <v-list-item-content>Compress</v-list-item-content>
-                    </v-list-item>
                     <v-list-item
                       v-if="item.name.endsWith('.zip')"
                       @click="extract(item.name)"
@@ -71,7 +65,13 @@
                       <v-list-item-icon>
                         <v-icon>mdi-pen</v-icon>
                       </v-list-item-icon>
-                      <v-list-item-content>Rename</v-list-item-content>
+                      <v-list-item-content>Rename/Move</v-list-item-content>
+                    </v-list-item>
+                    <v-list-item @click="compress(item.name)">
+                      <v-list-item-icon>
+                        <v-icon>mdi-zip-box</v-icon>
+                      </v-list-item-icon>
+                      <v-list-item-content>Compress</v-list-item-content>
                     </v-list-item>
                     <v-list-item @click="remove(item.name)">
                       <v-list-item-icon>

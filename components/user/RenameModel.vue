@@ -1,10 +1,10 @@
 <template>
   <v-card>
-    <v-card-title>Rename</v-card-title>
+    <v-card-title>Rename/Move</v-card-title>
     <v-card-text>
       <v-text-field
         v-model="target"
-        label="Type new name..."
+        label="Type new name for renaming, or append target directory for moving..."
         autofocus
         @keydown.enter="rename"
       />
