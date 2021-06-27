@@ -1,7 +1,7 @@
 <template>
   <div :class="activeStatus">
     <Notice v-show="notice" :text="notice" />
-    <div v-if="$store.state.loaded" id="interactive">
+    <div v-if="$store.state.loaded" :disabled="latch" class="interactive">
       <v-row>
         <v-col>
           <Profile />
@@ -45,9 +45,9 @@
                 </v-list-item-content>
               </v-list-item>
               <v-list-item-action>
-                <v-menu :disabled="latch" offset-y>
+                <v-menu offset-y>
                   <template #activator="{ on, attrs }">
-                    <v-btn title="Remove" rounded v-bind="attrs" v-on="on">
+                    <v-btn title="More" rounded v-bind="attrs" v-on="on">
                       <v-icon>mdi-more</v-icon>
                     </v-btn>
                   </template>
@@ -110,41 +110,41 @@
         </v-col>
       </v-row>
     </div>
-    <div id="model">
-      <NewDirectoryModel
+    <div class="components">
+      <new-directory-model
         v-if="active === 1"
         :cwd="cwd"
         @success="get"
         @cancel="cancel"
       />
-      <NewFileModel
+      <new-file-model
         v-else-if="active === 2"
         :cwd="cwd"
         @success="get"
         @cancel="cancel"
       />
-      <RenameModel
+      <rename-model
         v-else-if="active === 3"
         :cwd="cwd"
         :origin="editing"
         @success="get"
         @cancel="cancel"
       />
-      <RemoveModel
+      <remove-model
         v-else-if="active === 4"
         :cwd="cwd"
         :target="editing"
         @success="get"
         @cancel="cancel"
       />
-      <CompressModel
+      <compress-model
         v-else-if="active === 5"
         :cwd="cwd"
         :origin="editing"
         @success="get"
         @cancel="cancel"
       />
-      <ExtractModel
+      <extract-model
         v-else-if="active === 6"
         :cwd="cwd"
         :target="editing"
@@ -304,12 +304,12 @@ export default {
 </script>
 
 <style>
-.active #interactive {
+.active .interactive {
   opacity: 0.3;
   filter: blur(3px);
 }
 
-.active #model {
+.active .components {
   position: absolute;
   top: 50px;
   left: 300px;
@@ -317,14 +317,14 @@ export default {
 }
 
 @media screen and (max-width: 1200px) {
-  .active #model {
+  .active .components {
     left: 100px;
     right: 100px;
   }
 }
 
 @media screen and (max-width: 600px) {
-  .active #model {
+  .active .components {
     left: 50px;
     right: 50px;
   }
