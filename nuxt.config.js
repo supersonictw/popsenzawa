@@ -6,8 +6,7 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: '%s - Virtual Host System',
-    title: 'Loading',
+    title: 'PopCat Active',
     htmlAttrs: {
       lang: 'en',
     },
@@ -57,7 +56,6 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
-    '@nuxtjs/auth',
   ],
 
   router: {
@@ -66,24 +64,8 @@ export default {
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    baseURL: process.env.BACKEND_URI,
-    browserBaseURL: process.env.BACKEND_URI,
-  },
-
-  auth: {
-    router: {
-      middleware: ['auth'],
-    },
-    redirect: {
-      callback: process.env.BASE_URL
-        ? process.env.BASE_URL + '/authorize'
-        : '/authorize',
-    },
-    strategies: {
-      google: {
-        client_id: process.env.GOOGLE_OAUTH_CLIENT_ID,
-      },
-    },
+    baseURL: process.env.POP_API_HOST,
+    browserBaseURL: process.env.POP_API_HOST,
   },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify

@@ -1,0 +1,20 @@
+name: cd
+
+on:
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  build_vue:
+    runs-on: ubuntu-latest
+    name: Build Vue
+    steps:
+      - uses: actions/checkout@v2
+      - id: Build-Vue
+        uses: ashkantaravati/NuxtToGithubPages@v1.0
+        with:
+          username: supersonictw
+          reponame: popcat-active
+          token: ${{ secrets.GITHUB_TOKEN }}
