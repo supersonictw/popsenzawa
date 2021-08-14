@@ -17,8 +17,8 @@ jobs:
       - name: Install and Build
         run: |
           npm ci
-          npm build
-          npm generate
+          npm run build
+          npm run generate
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.4
         with:
