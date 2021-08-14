@@ -9,14 +9,18 @@ on:
       - main
 
 jobs:
-  build_vue:
+  build-and-deploy:
     runs-on: ubuntu-latest
-    name: Build Vue
     steps:
-      - uses: actions/checkout@v2
-      - id: Build-Vue
-        uses: ashkantaravati/NuxtToGithubPages@v1.0
+      - name: Checkout 🛎️
+        uses: actions/checkout@v2.3.1
+      - name: Install and Build
+        run: |
+          npm ci
+          npm build
+          npm generate
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@4.1.4
         with:
-          username: supersonictw
-          reponame: popcat-active
-          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: gh-pages
+          folder: dist
