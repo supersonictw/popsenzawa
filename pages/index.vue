@@ -1,8 +1,15 @@
 <template>
   <div>
-    <v-btn @click="meow">Meow</v-btn>
+    <v-card class="text-center my-10 py-5">
+      <v-btn @click="meow">Meow</v-btn>
+    </v-card>
     <v-card>
-      <div>{{ leaderboard }}</div>
+      <v-card-title> Worldwide: {{ leaderboard.global }} </v-card-title>
+      <v-list>
+        <v-list-item v-for="(count, key) in leaderboard.regions" :key="key">
+          {{ key }}: {{ count }}
+        </v-list-item>
+      </v-list>
     </v-card>
   </div>
 </template>
@@ -25,7 +32,7 @@ export default {
   mounted() {
     this.send()
     this.listener = this.$sse.create()
-    this.listener.on('messages', this.updateLeaderboard)
+    this.listener.on('message', this.updateLeaderboard)
     if (process.env.NODE_ENV !== 'test') {
       this.listener.connect()
     }
