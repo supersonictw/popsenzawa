@@ -1,13 +1,14 @@
 <template>
   <div>
     <v-card class="text-center my-10 py-5">
+      <v-card-text>{{ count }}</v-card-text>
       <v-btn @click="meow">Meow</v-btn>
     </v-card>
     <v-card>
       <v-card-title> Worldwide: {{ leaderboard.global }} </v-card-title>
       <v-list>
-        <v-list-item v-for="(count, key) in leaderboard.regions" :key="key">
-          {{ key }}: {{ count }}
+        <v-list-item v-for="(value, key) in leaderboard.regions" :key="key">
+          {{ key }}: {{ value }}
         </v-list-item>
       </v-list>
     </v-card>
@@ -22,6 +23,8 @@ const SEND_DELAY = parseInt(process.env.sendDelay)
 export default {
   name: 'Index',
   data: () => ({
+    count: 0,
+    bot: false,
     listener: null,
     accumulator: 0,
     nextToken: '',
@@ -41,6 +44,7 @@ export default {
   },
   methods: {
     meow() {
+      this.count++
       this.accumulator++
     },
     updateLeaderboard(response) {
@@ -48,7 +52,7 @@ export default {
       this.leaderboard.regions = response.regions
     },
     async pushPops() {
-      if (this.accumulator) {
+      if (!this.bot && this.accumulator) {
         const append = this.accumulator
         this.accumulator = 0
         const query = qs.stringify({
