@@ -23,6 +23,7 @@ const SEND_DELAY = parseInt(process.env.sendDelay)
 export default {
   name: 'Index',
   data: () => ({
+    init: false,
     count: 0,
     bot: false,
     listener: null,
@@ -58,7 +59,7 @@ export default {
       this.leaderboard.regions = response.regions
     },
     async pushPops() {
-      if (!this.bot && this.accumulator) {
+      if (!this.bot && (this.accumulator || !this.init)) {
         const append = this.accumulator
         this.accumulator = 0
         const query = qs.stringify({
@@ -69,11 +70,13 @@ export default {
         try {
           const result = await this.$axios.$post(`/pop?${query}`)
           if ('new_token' in result) {
+            this.init = true
             this.nextToken = result.new_token
           } else {
             this.accumulator += append
           }
         } catch (e) {
+          this.init = false
           this.accumulator += append
         }
       }
