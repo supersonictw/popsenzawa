@@ -39,6 +39,12 @@ export default {
     this.listener = this.$sse.create()
     this.listener.on('message', this.updateLeaderboard)
     if (process.env.NODE_ENV !== 'test') {
+      if (localStorage.getItem('count')) {
+        this.count = parseInt(localStorage.getItem('count'))
+      }
+      if (localStorage.getItem('bot')) {
+        this.bot = Boolean(localStorage.getItem('bot'))
+      }
       this.listener.connect()
     }
   },
@@ -46,6 +52,7 @@ export default {
     meow() {
       this.count++
       this.accumulator++
+      localStorage.setItem('count', this.count)
     },
     updateLeaderboard(response) {
       this.leaderboard.global = response.global

@@ -15,8 +15,8 @@ module.exports = {
     '<rootDir>/pages/**/*.vue',
   ],
   setupFiles: [
-    '<rootDir>/test/setup/jsdom.js',
     '<rootDir>/test/setup/vuetify.js',
     '<rootDir>/test/setup/vue-sse.js',
   ],
+  setupFilesAfterEnv: ['<rootDir>/test/setup/jsdom.js'],
 }
