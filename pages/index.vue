@@ -77,6 +77,7 @@ export default {
           }
         } catch (e) {
           this.init = false
+          this.nextToken = ''
           this.accumulator += append
         }
       }
