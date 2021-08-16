@@ -13,20 +13,28 @@ import qs from 'query-string'
 export default {
   name: 'Index',
   data: () => ({
+    listener: null,
     accumulator: 0,
     nextToken: '',
     captchaToken: '',
-    leaderboard: null,
+    leaderboard: {
+      global: null,
+      regions: {},
+    },
   }),
   mounted() {
     this.send()
+    this.listener = this.$sse.create()
+    this.listener.on('messages', this.updateLeaderboard)
+    this.listener.connect()
   },
   methods: {
     meow() {
       this.accumulator++
-      this.listener = this.$sse.create()
-      this.listener.on('messages', (response) => (this.leaderboard = response))
-      this.listener.connect()
+    },
+    updateLeaderboard(response) {
+      this.leaderboard.global = response.global
+      this.leaderboard.regions = response.regions
     },
     async send() {
       const query = qs.stringify({
