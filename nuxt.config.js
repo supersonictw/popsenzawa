@@ -1,6 +1,14 @@
 import fs from 'fs'
 import colors from 'vuetify/es5/util/colors'
 
+const serverOptions = {}
+if (process.env.NODE_ENV !== 'development' && process.env.HTTPS === 'yes') {
+  serverOptions.https = {
+    key: fs.readFileSync(process.env.HTTPS_KEY),
+    cert: fs.readFileSync(process.env.HTTPS_CRT),
+  }
+}
+
 export default {
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
@@ -97,10 +105,5 @@ export default {
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
 
-  server: {
-    https: {
-      key: fs.readFileSync('/etc/ssl/private/ssl-cert-snakeoil.key'),
-      cert: fs.readFileSync('/etc/ssl/certs/ssl-cert-snakeoil.pem'),
-    },
-  },
+  server: serverOptions,
 }
