@@ -17,23 +17,29 @@
 
 <script>
 import qs from 'query-string'
+import { decode } from 'js-base64'
+import BigJSON from 'json-bigint'
 
 const SEND_DELAY = parseInt(process.env.sendDelay)
 
 export default {
   name: 'Index',
   data: () => ({
-    init: false,
+    ready: false,
     recovery: false,
     count: 0,
     bot: false,
     listener: null,
     accumulator: 0,
+    delay_accumulator: 0,
     nextToken: '',
     captchaToken: '',
     leaderboard: {
       global: null,
       regions: {},
+    },
+    profile: {
+      sub: '',
     },
   }),
   mounted() {
@@ -53,14 +59,25 @@ export default {
     meow() {
       this.count++
       this.accumulator++
+      this.delay_accumulator++
+      this.leaderboard.global++
+      if (this.profile.sub in this.leaderboard.regions) {
+        this.leaderboard.regions[this.profile.sub]++
+      } else {
+        this.leaderboard.regions[this.profile.sub] = 1
+      }
       localStorage.setItem('count', this.count)
     },
     updateLeaderboard(response) {
+      response = BigJSON.parse(response)
+      response.global -= this.delay_accumulator
+      response.regions[this.profile.sub] -= this.delay_accumulator
+      this.delay_accumulator = 0
       this.leaderboard.global = response.global
       this.leaderboard.regions = response.regions
     },
     async pushPops() {
-      if (!this.bot && (this.accumulator || !this.init || this.recovery)) {
+      if (!this.bot && (this.accumulator || !this.ready || this.recovery)) {
         const append = this.accumulator
         this.accumulator = 0
         const query = qs.stringify({
@@ -72,8 +89,11 @@ export default {
           const response = await this.$axios.post(`/pop?${query}`)
           const result = response.data
           if ('new_token' in result) {
-            if (!this.init) {
-              this.init = true
+            if (this.ready) {
+              this.ready = true
+              this.profile = BigJSON.parse(
+                decode(result.new_token.split('.')[1])
+              )
             }
             if (this.recovery) {
               if (response.status === 200) {

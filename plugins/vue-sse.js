@@ -5,6 +5,6 @@ export default function (context) {
   Vue.use(VueSSE, {
     url: context.env.popApiHost + '/leaderboard?stream=messages',
     polyfill: true,
-    format: 'json',
+    format: 'plain',
   })
 }
