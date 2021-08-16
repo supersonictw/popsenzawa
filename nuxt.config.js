@@ -60,7 +60,7 @@ export default {
 
   env: {
     popApiHost: process.env.POP_API_HOST,
-    sendDelay: process.env.SEND_DELAY,
+    sendDelay: process.env.SEND_DELAY || '5000',
   },
 
   router: {
