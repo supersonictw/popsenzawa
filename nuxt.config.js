@@ -5,7 +5,7 @@ const serverOptions = {}
 if (process.env.NODE_ENV !== 'development' && process.env.HTTPS === 'yes') {
   serverOptions.https = {
     key: fs.readFileSync(process.env.HTTPS_KEY),
-    cert: fs.readFileSync(process.env.HTTPS_CRT),
+    cert: fs.readFileSync(process.env.HTTPS_CERT),
   }
 }
 
@@ -69,7 +69,7 @@ export default {
 
   env: {
     popApiHost: process.env.POP_API_HOST,
-    sendDelay: process.env.SEND_DELAY || '5000',
+    sendDelay: process.env.SEND_DELAY || '1000',
     maxPops: process.env.MAX_POPS || '800',
   },
 
