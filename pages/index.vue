@@ -26,7 +26,9 @@ export default {
     this.send()
     this.listener = this.$sse.create()
     this.listener.on('messages', this.updateLeaderboard)
-    this.listener.connect()
+    if (process.env.NODE_ENV !== 'test') {
+      this.listener.connect()
+    }
   },
   methods: {
     meow() {

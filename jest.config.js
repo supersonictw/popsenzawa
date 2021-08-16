@@ -14,4 +14,8 @@ module.exports = {
     '<rootDir>/components/**/*.vue',
     '<rootDir>/pages/**/*.vue',
   ],
+  setupFiles: [
+    '<rootDir>/test/setup/vuetify.js',
+    '<rootDir>/test/setup/vue-sse.js',
+  ],
 }
