@@ -70,13 +70,18 @@ export default {
         })
         try {
           const response = await this.$axios.post(`/pop?${query}`)
-          if (this.recovery && response.status === 201) {
-            this.recovery = false
-          }
           const result = response.data
           if ('new_token' in result) {
             if (!this.init) {
               this.init = true
+            }
+            if (this.recovery) {
+              if (response.status === 200) {
+                this.accumulator += append
+              }
+              if (response.status === 201) {
+                this.recovery = false
+              }
             }
             this.nextToken = result.new_token
           } else {
