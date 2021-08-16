@@ -17,6 +17,8 @@
 <script>
 import qs from 'query-string'
 
+const SEND_DELAY = parseInt(process.env.sendDelay)
+
 export default {
   name: 'Index',
   data: () => ({
@@ -30,7 +32,7 @@ export default {
     },
   }),
   mounted() {
-    this.send()
+    this.pushPops()
     this.listener = this.$sse.create()
     this.listener.on('message', this.updateLeaderboard)
     if (process.env.NODE_ENV !== 'test') {
@@ -45,17 +47,23 @@ export default {
       this.leaderboard.global = response.global
       this.leaderboard.regions = response.regions
     },
-    async send() {
-      const query = qs.stringify({
-        count: this.accumulator,
-        token: this.nextToken,
-        captcha_token: this.captchaToken,
-      })
-      const result = await this.$axios.$post(`/pop?${query}`)
-      if ('next_token' in result) {
-        this.nextToken = result.next_token
+    async pushPops() {
+      if (this.accumulator) {
+        const append = this.accumulator
+        this.accumulator = 0
+        const query = qs.stringify({
+          count: append,
+          token: this.nextToken,
+          captcha_token: this.captchaToken,
+        })
+        const result = await this.$axios.$post(`/pop?${query}`)
+        if ('new_token' in result) {
+          this.nextToken = result.new_token
+        } else {
+          this.accumulator += append
+        }
       }
-      setTimeout(this.send, 5000)
+      setTimeout(this.pushPops, SEND_DELAY)
     },
   },
 }
