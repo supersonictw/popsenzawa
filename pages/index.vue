@@ -84,7 +84,7 @@ export default {
           const response = await this.$axios.post(`/pop?${query}`)
           const result = response.data
           if ('new_token' in result) {
-            if (this.ready) {
+            if (!this.ready) {
               this.ready = true
               this.profile = BigJSON.parse(
                 decode(result.new_token.split('.')[1])
