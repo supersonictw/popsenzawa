@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.12.5",
+    "bignumber.js": "^9.0.1",
     "core-js": "^3.9.1",
     "js-base64": "^3.6.1",
     "jsdom-global": "^3.0.2",

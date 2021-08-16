@@ -1,3 +1,4 @@
+import fs from 'fs'
 import colors from 'vuetify/es5/util/colors'
 
 export default {
@@ -95,4 +96,11 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
+
+  server: {
+    https: {
+      key: fs.readFileSync('/etc/ssl/private/ssl-cert-snakeoil.key'),
+      cert: fs.readFileSync('/etc/ssl/certs/ssl-cert-snakeoil.pem'),
+    },
+  },
 }
