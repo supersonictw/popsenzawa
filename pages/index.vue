@@ -24,6 +24,7 @@ export default {
   name: 'Index',
   data: () => ({
     init: false,
+    recovery: false,
     count: 0,
     bot: false,
     listener: null,
@@ -59,7 +60,7 @@ export default {
       this.leaderboard.regions = response.regions
     },
     async pushPops() {
-      if (!this.bot && (this.accumulator || !this.init)) {
+      if (!this.bot && (this.accumulator || !this.init || this.recovery)) {
         const append = this.accumulator
         this.accumulator = 0
         const query = qs.stringify({
@@ -68,15 +69,21 @@ export default {
           captcha_token: this.captchaToken,
         })
         try {
-          const result = await this.$axios.$post(`/pop?${query}`)
+          const response = await this.$axios.post(`/pop?${query}`)
+          if (this.recovery && response.status === 201) {
+            this.recovery = false
+          }
+          const result = response.data
           if ('new_token' in result) {
-            this.init = true
+            if (!this.init) {
+              this.init = true
+            }
             this.nextToken = result.new_token
           } else {
             this.accumulator += append
           }
         } catch (e) {
-          this.init = false
+          this.recovery = true
           this.nextToken = ''
           this.accumulator += append
         }
