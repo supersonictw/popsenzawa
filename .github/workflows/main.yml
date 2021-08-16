@@ -1,33 +1,27 @@
-name: ci
+name: main
 
 on:
   push:
     branches:
       - main
-      - master
   pull_request:
     branches:
       - main
-      - master
 
 jobs:
-  ci:
+  lint-and-test:
     runs-on: ${{ matrix.os }}
-
     strategy:
       matrix:
-        os: [ubuntu-latest]
-        node: [14]
-
+        os: [ ubuntu-latest ]
+        node: [ 14 ]
     steps:
       - name: Checkout 🛎
         uses: actions/checkout@v2.3.4
-
       - name: Setup node env 🏗
         uses: actions/setup-node@v2.1.5
         with:
           node-version: ${{ matrix.node }}
-
       - name: Cache node_modules 📦
         uses: actions/cache@v2.1.4
         with:
@@ -35,12 +29,26 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
-
       - name: Install dependencies 👨🏻‍💻
         run: npm ci
-
       - name: Run linter 👀
         run: npm run lint
-
       - name: Run tests 🧪
         run: npm run test
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v2.3.4
+      - name: Install and Build
+        env:
+          POP_API_HOST: ${{ secrets.POP_API_HOST }}
+        run: |
+          npm ci
+          npm run build
+          npm run generate
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@4.1.4
+        with:
+          branch: gh-pages
+          folder: dist
