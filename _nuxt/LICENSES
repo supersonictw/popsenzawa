@@ -10,6 +10,18 @@
  * Released under the MIT License.
  */
 
+/*!
+ * vue-sse v2.2.0
+ * (c) 2021 James Churchard
+ * @license MIT
+ */
+
+/** @license
+ * eventsource.js
+ * Available under MIT License (MIT)
+ * https://github.com/Yaffle/EventSource/
+ */
+
 
 /*!
   * vue-router v3.5.2
