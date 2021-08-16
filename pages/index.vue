@@ -35,18 +35,17 @@ export default {
     },
   }),
   mounted() {
+    if (process.env.NODE_ENV === 'test') return
     this.pushPops()
     this.listener = this.$sse.create()
     this.listener.on('message', this.updateLeaderboard)
-    if (process.env.NODE_ENV !== 'test') {
-      if (localStorage.getItem('count')) {
-        this.count = parseInt(localStorage.getItem('count'))
-      }
-      if (localStorage.getItem('bot')) {
-        this.bot = Boolean(localStorage.getItem('bot'))
-      }
-      this.listener.connect()
+    if (localStorage.getItem('count')) {
+      this.count = parseInt(localStorage.getItem('count'))
     }
+    if (localStorage.getItem('bot')) {
+      this.bot = Boolean(localStorage.getItem('bot'))
+    }
+    this.listener.connect()
   },
   methods: {
     meow() {
