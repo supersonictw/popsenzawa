@@ -31,7 +31,6 @@ export default {
     bot: false,
     listener: null,
     accumulator: 0,
-    delay_accumulator: 0,
     nextToken: '',
     captchaToken: '',
     leaderboard: {
@@ -59,7 +58,6 @@ export default {
     meow() {
       this.count++
       this.accumulator++
-      this.delay_accumulator++
       this.leaderboard.global++
       if (this.profile.sub in this.leaderboard.regions) {
         this.leaderboard.regions[this.profile.sub]++
@@ -70,9 +68,6 @@ export default {
     },
     updateLeaderboard(response) {
       response = BigJSON.parse(response)
-      response.global -= this.delay_accumulator
-      response.regions[this.profile.sub] -= this.delay_accumulator
-      this.delay_accumulator = 0
       this.leaderboard.global = response.global
       this.leaderboard.regions = response.regions
     },
