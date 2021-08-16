@@ -20,6 +20,7 @@ import qs from 'query-string'
 import { decode } from 'js-base64'
 import BigJSON from 'json-bigint'
 
+const MAX_POPS = parseInt(process.env.maxPops)
 const SEND_DELAY = parseInt(process.env.sendDelay)
 
 export default {
@@ -68,13 +69,22 @@ export default {
     },
     updateLeaderboard(response) {
       response = BigJSON.parse(response)
+      if (this.accumulator) {
+        response.regions[this.profile.sub] += this.accumulator
+      }
       this.leaderboard.global = response.global
       this.leaderboard.regions = response.regions
     },
     async pushPops() {
       if (!this.bot && (this.accumulator || !this.ready || this.recovery)) {
-        const append = this.accumulator
-        this.accumulator = 0
+        let append
+        if (this.accumulator > MAX_POPS) {
+          append = MAX_POPS
+          this.accumulator -= MAX_POPS
+        } else {
+          append = this.accumulator
+          this.accumulator = 0
+        }
         const query = qs.stringify({
           count: append,
           token: this.nextToken,
