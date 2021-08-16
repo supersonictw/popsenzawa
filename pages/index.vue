@@ -1,5 +1,10 @@
 <template>
-  <v-btn @click="meow">Meow</v-btn>
+  <div>
+    <v-btn @click="meow">Meow</v-btn>
+    <v-card>
+      <div>{{ leaderboard }}</div>
+    </v-card>
+  </div>
 </template>
 
 <script>
@@ -11,6 +16,7 @@ export default {
     accumulator: 0,
     nextToken: '',
     captchaToken: '',
+    leaderboard: null,
   }),
   mounted() {
     this.send()
@@ -18,6 +24,9 @@ export default {
   methods: {
     meow() {
       this.accumulator++
+      this.listener = this.$sse.create()
+      this.listener.on('messages', (response) => (this.leaderboard = response))
+      this.listener.connect()
     },
     async send() {
       const query = qs.stringify({

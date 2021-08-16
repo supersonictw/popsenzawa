@@ -27,7 +27,8 @@
     "core-js": "^3.9.1",
     "moment": "^2.29.1",
     "nuxt": "^2.14.12",
-    "query-string": "^7.0.1"
+    "query-string": "^7.0.1",
+    "vue-sse": "^2.2.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^12.0.1",
