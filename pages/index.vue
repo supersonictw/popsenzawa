@@ -66,10 +66,14 @@ export default {
           token: this.nextToken,
           captcha_token: this.captchaToken,
         })
-        const result = await this.$axios.$post(`/pop?${query}`)
-        if ('new_token' in result) {
-          this.nextToken = result.new_token
-        } else {
+        try {
+          const result = await this.$axios.$post(`/pop?${query}`)
+          if ('new_token' in result) {
+            this.nextToken = result.new_token
+          } else {
+            this.accumulator += append
+          }
+        } catch (e) {
           this.accumulator += append
         }
       }
