@@ -32,7 +32,7 @@
     "moment": "^2.29.1",
     "nuxt": "^2.14.12",
     "query-string": "^7.0.1",
-    "vue-sse": "^2.2.0"
+    "vue-sse": "^2.3.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^13.1.0",
