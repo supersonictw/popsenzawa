@@ -1,7 +1,15 @@
 <template>
-  <v-card class="text-center my-10 py-5">
-    <v-card-text>{{ count }}</v-card-text>
-    <v-btn @click="meow">Meow</v-btn>
+  <v-card class="text-center">
+    <v-img
+      class="meow-btn"
+      alt="Meow"
+      width="100%"
+      height="100%"
+      :src="buttonImage"
+      @mousedown="meow"
+      @mouseup="release"
+    />
+    <h1>{{ count }}</h1>
   </v-card>
 </template>
 
@@ -29,7 +37,13 @@ export default {
     captchaToken: '',
     count: new BigNumber(0),
     accumulator: new BigNumber(0),
+    pressing: false,
   }),
+  computed: {
+    buttonImage() {
+      return this.pressing ? './button/pressed.png' : './button/release.png'
+    },
+  },
   mounted() {
     if (process.env.NODE_ENV === 'test') return
     this.push()
@@ -39,12 +53,22 @@ export default {
     if (localStorage.getItem('count')) {
       this.count = new BigNumber(localStorage.getItem('count'))
     }
+    window.addEventListener('keydown', this.meow)
+    window.addEventListener('keyup', this.release)
+  },
+  beforeDestroy() {
+    window.addEventListener('keydown', this.meow)
+    window.addEventListener('keyup', this.release)
   },
   methods: {
     meow() {
+      this.pressing = true
       this.count.add(1)
       this.accumulator.add(1)
       localStorage.setItem('count', this.count.toString())
+    },
+    release() {
+      this.pressing = false
     },
     getAppend() {
       let append
@@ -106,3 +130,9 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.meow-btn {
+  cursor: pointer !important;
+}
+</style>

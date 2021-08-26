@@ -8,7 +8,7 @@
         {{ otherError }}
       </v-card-title>
       <v-card-actions>
-        <v-btn class="amber darken-3" nuxt to="/"> Home page </v-btn>
+        <v-btn class="primary" nuxt to="/"> Home page </v-btn>
       </v-card-actions>
     </v-card>
   </v-app>

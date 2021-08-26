@@ -1,11 +1,19 @@
 <template>
-  <v-card>
+  <v-card flat>
     <v-card-title> Worldwide: {{ leaderboard.global }}</v-card-title>
-    <v-list>
-      <v-list-item v-for="(value, key) in leaderboard.regions" :key="key">
-        {{ key }}: {{ value }}
-      </v-list-item>
-    </v-list>
+    <v-card class="overflow-y-auto" width="350" :max-height="height">
+      <v-list>
+        <v-list-item v-for="(value, key) in leaderboard.regions" :key="key">
+          {{ key }}: {{ value }}
+        </v-list-item>
+      </v-list>
+    </v-card>
+    <v-card-actions class="red action-bar">
+      <v-spacer />
+      <v-btn class="amber darken-4" @click="$emit('close')">
+        <v-icon>mdi-close</v-icon>
+      </v-btn>
+    </v-card-actions>
   </v-card>
 </template>
 
@@ -21,6 +29,11 @@ export default {
       regions: {},
     },
   }),
+  computed: {
+    height() {
+      return window.innerHeight - 150
+    },
+  },
   mounted() {
     if (process.env.NODE_ENV === 'test') return
     this.listener = this.$sse.create()
@@ -41,3 +54,9 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.action-bar {
+  width: 100%;
+}
+</style>
