@@ -2,7 +2,7 @@ import fs from 'fs'
 import colors from 'vuetify/es5/util/colors'
 
 const serverOptions = {}
-if (process.env.NODE_ENV !== 'development' && process.env.HTTPS === 'yes') {
+if (process.env.NODE_ENV === 'development' && process.env.HTTPS === 'yes') {
   serverOptions.https = {
     key: fs.readFileSync(process.env.HTTPS_KEY),
     cert: fs.readFileSync(process.env.HTTPS_CERT),
