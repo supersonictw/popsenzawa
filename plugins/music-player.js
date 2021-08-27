@@ -1,23 +1,14 @@
 import * as Tone from 'tone'
 
 const Music = {
-  BadApple: {
-    key: 'BadApple',
-    opus: new Tone.Player(
-      'static/audio/level/one/opus/bad_apple.opus'
-    ).toDestination(),
-  },
-  UNOwenWasHer: {
-    key: 'UNOwenWasHer',
-    opus: new Tone.Player(
-      'static/audio/level/one/opus/un_owen_was_her.opus'
-    ).toDestination(),
+  CountryRoad: {
+    key: 'Country Road',
+    opus: new Tone.Player('audio/country_road.opus').toDestination(),
   },
 }
 
-function MusicPlayer(midi) {
+function MusicPlayer() {
   this.music = null
-  this.synths = []
   this.playing = false
 }
 
@@ -29,6 +20,10 @@ MusicPlayer.prototype = {
     this.music = Music[musicName]
   },
   play() {
+    if (this.playing) {
+      console.warn('Already playing')
+      return
+    }
     if (!this.music) {
       console.warn('No music is chosen')
       return

@@ -49,6 +49,7 @@ export default {
     accumulator: new BigNumber(0),
     pressing: false,
     testing: IS_TEST,
+    music: null,
   }),
   computed: {
     buttonImage() {
@@ -68,6 +69,10 @@ export default {
     }
     window.addEventListener('keydown', this.meow)
     window.addEventListener('keyup', this.release)
+    import('../plugins/music-player.js').then(({ MusicPlayer }) => {
+      this.music = new MusicPlayer()
+      this.music.choose('CountryRoad')
+    })
   },
   beforeDestroy() {
     window.addEventListener('keydown', this.meow)
@@ -79,9 +84,22 @@ export default {
       this.count.add(1)
       this.accumulator.add(1)
       localStorage.setItem('count', this.count.toString())
+      if (this.music && !this.music.playing) {
+        this.music.play()
+      }
     },
     release() {
       this.pressing = false
+      setTimeout(() => {
+        if (
+          !this.pressing &&
+          this.music &&
+          this.music.playing &&
+          this.music.playing.loaded
+        ) {
+          this.music.stop()
+        }
+      }, 3000)
     },
     getAppend() {
       let append
