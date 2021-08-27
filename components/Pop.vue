@@ -18,8 +18,6 @@
       :src="buttonImage"
       @pointerdown="meow"
       @pointerup="release"
-      @mousedown="meow"
-      @mouseup="release"
     />
   </v-card>
 </template>
