@@ -2,10 +2,16 @@
   <v-container>
     <pop />
     <div class="board-btn-row">
+      <v-btn x-large rounded @click="info = true">
+        <v-icon x-large>mdi-information</v-icon>
+      </v-btn>
       <v-btn x-large rounded @click="board = true">
         <v-icon x-large>mdi-earth</v-icon>
       </v-btn>
     </div>
+    <v-overlay v-model="info">
+      <information @close="info = false" />
+    </v-overlay>
     <v-overlay v-model="board">
       <keep-alive>
         <leaderboard @close="board = false" />
@@ -17,11 +23,13 @@
 <script>
 import Pop from '~/components/Pop'
 import Leaderboard from '~/components/Leaderboard'
+import Information from '~/components/Information'
 
 export default {
   name: 'Index',
-  components: { Leaderboard, Pop },
+  components: { Information, Leaderboard, Pop },
   data: () => ({
+    info: false,
     board: false,
   }),
 }
