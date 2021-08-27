@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container id="container">
     <pop />
     <div class="board-btn-row">
       <v-btn x-large rounded @click="info = true">
@@ -36,6 +36,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+#container {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
 .board-btn-row {
   width: 100%;
   position: fixed;
