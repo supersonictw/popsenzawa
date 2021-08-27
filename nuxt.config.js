@@ -30,7 +30,7 @@ export default {
       {
         hid: 'description',
         name: 'description',
-        content: '',
+        content: 'Here is PopSenzawa! Awww (๑ºωº)',
       },
     ],
     link: [
