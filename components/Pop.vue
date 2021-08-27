@@ -50,6 +50,7 @@ export default {
     pressing: false,
     testing: IS_TEST,
     music: null,
+    musicChecking: false,
   }),
   computed: {
     buttonImage() {
@@ -90,6 +91,8 @@ export default {
     },
     release() {
       this.pressing = false
+      if (this.musicChecking) return
+      this.musicChecking = true
       setTimeout(() => {
         if (
           !this.pressing &&
@@ -99,6 +102,7 @@ export default {
         ) {
           this.music.stop()
         }
+        this.musicChecking = false
       }, 3000)
     },
     getAppend() {
