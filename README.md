@@ -8,6 +8,12 @@
 the web client of `popcat-echo`,
 built by [Vue.js 2](https://vuejs.org/) and [Nuxt.js](https://nuxtjs.org/).
 
+The project is not related to real `Senzawa`, it's just for fun and testing.
+
+## License
+
+The software is licensed under [MIT License](LICENSE).
+
 ## Build Setup
 
 ```bash
@@ -24,3 +30,9 @@ $ npm run start
 # generate static project
 $ npm run generate
 ```
+
+## Copyright
+
+The copyright of resources are listed on [COPYING](COPYING).
+
+> (c) 2021 [SuperSonic](https://github.com/supersonictw).
