@@ -1,12 +1,12 @@
 # PopSenzawa (popcat-active)
 
-> **Here is PopSenzawa! Awww (๑ºωº)**
+> **Here is [PopSenzawa](https://popsenzawa.click)! Awww (๑ºωº)**
 
 ![senzawa](static/favicon.ico)
 
 `popcat-active` is an opensource project,
 the web client of `popcat-echo`,
-built by [Vue.js 2](https://vuejs.org/) and [Nuxt.js](https://nuxtjs.org/).
+built by [Vue.js 2](https://vuejs.org) and [Nuxt.js](https://nuxtjs.org).
 
 The project is not related to real `Senzawa`, it's just for fun and testing.
 
