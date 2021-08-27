@@ -32,6 +32,7 @@
     "moment": "^2.29.1",
     "nuxt": "^2.14.12",
     "query-string": "^7.0.1",
+    "tone": "^14.7.77",
     "vue-sse": "^2.3.0"
   },
   "devDependencies": {

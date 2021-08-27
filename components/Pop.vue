@@ -1,15 +1,19 @@
 <template>
-  <v-card class="text-center">
+  <v-card class="mx-auto text-center" width="90%" height="90%">
+    <h1 class="crazy flat top-10">PopSenzawa</h1>
+    <h2 class="crazy flat top-50">Awww (๑ºωº)</h2>
+    <h2 class="crazy flat bottom-25">{{ count }}</h2>
     <v-img
       class="meow-btn"
       alt="Meow"
       width="100%"
       height="100%"
       :src="buttonImage"
+      @pointerdown="meow"
+      @pointerup="release"
       @mousedown="meow"
       @mouseup="release"
     />
-    <h1>{{ count }}</h1>
   </v-card>
 </template>
 
@@ -41,7 +45,9 @@ export default {
   }),
   computed: {
     buttonImage() {
-      return this.pressing ? './button/pressed.png' : './button/release.png'
+      return this.pressing
+        ? './image/button/pressed.png'
+        : './image/button/release.png'
     },
   },
   mounted() {
@@ -131,7 +137,30 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+.crazy {
+  -webkit-text-stroke: 1px navy;
+}
+
+.flat {
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 5;
+
+  &.top-10 {
+    top: 10px;
+  }
+
+  &.top-50 {
+    top: 50px;
+  }
+
+  &.bottom-25 {
+    bottom: 25px;
+  }
+}
+
 .meow-btn {
   cursor: pointer !important;
 }
