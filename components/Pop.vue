@@ -51,7 +51,6 @@ export default {
     lastPressed: 0,
     testing: IS_TEST,
     music: null,
-    musicChecking: false,
   }),
   computed: {
     buttonImage() {
@@ -93,8 +92,6 @@ export default {
     release() {
       this.pressing = false
       this.lastPressed = new Date().getTime()
-      if (this.musicChecking) return
-      this.musicChecking = true
       setTimeout(() => {
         const currentTime = new Date().getTime()
         if (
@@ -106,8 +103,7 @@ export default {
         ) {
           this.music.stop()
         }
-        this.musicChecking = false
-      }, 3000)
+      }, 5000)
     },
     getAppend() {
       let append
