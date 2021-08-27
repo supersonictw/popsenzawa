@@ -18,7 +18,7 @@
           target="_blank"
         >
           popcat-echo</a
-        >, built by Vue.js 2.
+        >, built by Vue.js 2 and Nuxt.js.
       </v-card-text>
       <v-card-text>
         The project is not related to real `Senzawa`, it's just for fun and
