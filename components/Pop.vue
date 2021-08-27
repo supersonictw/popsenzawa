@@ -4,6 +4,7 @@
     <h2 class="crazy flat top-50">Awww (๑ºωº)</h2>
     <h2 class="crazy flat bottom-25">{{ count }}</h2>
     <v-img
+      v-if="!testing"
       class="meow-btn"
       alt="Meow"
       width="100%"
@@ -30,6 +31,11 @@ BigNumber.prototype.sub = function (n) {
 
 const MAX_POPS = parseInt(process.env.maxPops)
 const SEND_DELAY = parseInt(process.env.sendDelay)
+/**
+ * v-img will cause jest running timeout (pollForSize).
+ * @type {boolean}
+ */
+const IS_TEST = process.env.NODE_ENV === 'test'
 
 export default {
   name: 'Pop',
@@ -42,6 +48,7 @@ export default {
     count: new BigNumber(0),
     accumulator: new BigNumber(0),
     pressing: false,
+    testing: IS_TEST,
   }),
   computed: {
     buttonImage() {

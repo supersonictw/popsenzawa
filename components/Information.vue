@@ -17,7 +17,7 @@
           rel="noopener noreferrer"
           target="_blank"
         >
-          popcat-echo </a
+          popcat-echo</a
         >, built by Vue.js 2.
       </v-card-text>
       <v-card-text>
