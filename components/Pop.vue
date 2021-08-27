@@ -70,7 +70,7 @@ export default {
       }
     },
     statusMessage() {
-      return this.pop.lt(20200913) ? 'Awww (๑ºωº)' : 'ù w ú'
+      return this.count.lt(20200913) ? 'Awww (๑ºωº)' : 'ù w ú'
     },
   },
   mounted() {
