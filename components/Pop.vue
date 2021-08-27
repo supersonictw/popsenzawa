@@ -48,6 +48,7 @@ export default {
     count: new BigNumber(0),
     accumulator: new BigNumber(0),
     pressing: false,
+    lastPressed: 0,
     testing: IS_TEST,
     music: null,
     musicChecking: false,
@@ -91,14 +92,17 @@ export default {
     },
     release() {
       this.pressing = false
+      this.lastPressed = new Date().getTime()
       if (this.musicChecking) return
       this.musicChecking = true
       setTimeout(() => {
+        const currentTime = new Date().getTime()
         if (
           !this.pressing &&
           this.music &&
           this.music.playing &&
-          this.music.playing.loaded
+          this.music.playing.loaded &&
+          currentTime - this.lastPressed >= 3000
         ) {
           this.music.stop()
         }
