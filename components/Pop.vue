@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mx-auto text-center" width="90%" height="90%">
+  <v-card class="mx-auto text-center" :width="height" :height="height">
     <h1 class="crazy flat top-10">PopSenzawa</h1>
     <h2 class="crazy flat top-50">Awww (๑ºωº)</h2>
     <h2 class="crazy flat bottom-25">{{ count }}</h2>
@@ -57,6 +57,13 @@ export default {
       return this.pressing
         ? './image/button/pressed.png'
         : './image/button/release.png'
+    },
+    height() {
+      if (typeof window !== 'undefined') {
+        return window.innerHeight - 150
+      } else {
+        return 750
+      }
     },
   },
   mounted() {
