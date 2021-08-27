@@ -58,9 +58,15 @@ export default {
   }),
   computed: {
     buttonImage() {
-      return this.pressing
-        ? './image/button/pressed.png'
-        : './image/button/release.png'
+      if (this.count.gt(20200913)) {
+        return this.pressing
+          ? './image/button/pressed-uwu.png'
+          : './image/button/release.png'
+      } else {
+        return this.pressing
+          ? './image/button/pressed.png'
+          : './image/button/release.png'
+      }
     },
     height() {
       if (typeof window !== 'undefined') {
@@ -70,7 +76,7 @@ export default {
       }
     },
     statusMessage() {
-      return this.count.lt(20200913) ? 'Awww (๑ºωº)' : 'ù w ú'
+      return this.count.gt(20200913) ? 'ù w ú' : 'Awww (๑ºωº)'
     },
   },
   mounted() {
