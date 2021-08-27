@@ -48,7 +48,7 @@ export default {
         response.regions[i] = new BigNumber(response.regions[i])
       }
       this.leaderboard.regions = Object.entries(response.regions)
-        .sort(([, a], [, b]) => a.lt(b))
+        .sort(([, a], [, b]) => (a.lt(b) ? 1 : -1))
         .reduce((r, [k, v]) => ({ ...r, [k]: v }), {})
     },
   },
