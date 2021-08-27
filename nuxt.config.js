@@ -15,7 +15,7 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'PopCat Active',
+    title: 'PopSenzawa',
     htmlAttrs: {
       lang: 'en',
     },
