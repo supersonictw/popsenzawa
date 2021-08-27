@@ -147,6 +147,10 @@ export default {
 <style lang="scss" scoped>
 .crazy {
   -webkit-text-stroke: 1px navy;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .flat {
