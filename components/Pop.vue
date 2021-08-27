@@ -7,7 +7,7 @@
     :max-height="height"
   >
     <h1 class="crazy flat top-10">PopSenzawa</h1>
-    <h2 class="crazy flat top-50">Awww (๑ºωº)</h2>
+    <h2 class="crazy flat top-50">{{ statusMessage }}</h2>
     <h2 class="crazy flat bottom-25">{{ count }}</h2>
     <v-img
       v-if="!testing"
@@ -68,6 +68,9 @@ export default {
       } else {
         return 750
       }
+    },
+    statusMessage() {
+      return this.pop < 20190929 ? 'Awww (๑ºωº)' : 'ù w ú'
     },
   },
   mounted() {
