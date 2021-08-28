@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html lang='en'>
+
+<head>
+  <meta charset='UTF-8'>
+  <title>404 - popcat-active</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500&display=swap" rel="stylesheet">
+  <style>
+    html,
+    body {
+      font-family: 'Roboto', sans-serif;
+    }
+  </style>
+</head>
+
+<body>
+<b>404 Not found</b>
+<p>
+  The page should be redirect,
+  but if it is not working,
+  please <a id='link' href="/">click me</a>.
+</p>
+<script>
+  location.replace(document.getElementById('link').getAttribute('href'))
+</script>
+</body>
+
+</html>
