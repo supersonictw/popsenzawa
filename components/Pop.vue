@@ -26,6 +26,8 @@
 import qs from 'query-string'
 import BigNumber from 'bignumber.js'
 
+import { Music } from '~/plugins/music-player'
+
 BigNumber.prototype.add = function (n) {
   Object.assign(this, this.plus(n))
 }
@@ -58,10 +60,10 @@ export default {
   }),
   computed: {
     buttonImage() {
-      if (this.count.gt(20200913)) {
+      if (this.count.gt(913)) {
         return this.pressing
           ? './image/button/pressed-uwu.png'
-          : './image/button/release.png'
+          : './image/button/release-uwu.png'
       } else {
         return this.pressing
           ? './image/button/pressed.png'
@@ -76,7 +78,11 @@ export default {
       }
     },
     statusMessage() {
-      return this.count.gt(20200913) ? 'ù w ú' : 'Awww (๑ºωº)'
+      if (this.count.gt(913)) {
+        return 'ù w ú'
+      } else {
+        return 'Awww (๑ºωº)'
+      }
     },
   },
   mounted() {
@@ -92,7 +98,11 @@ export default {
     window.addEventListener('keyup', this.release)
     import('../plugins/music-player.js').then(({ MusicPlayer }) => {
       this.music = new MusicPlayer()
-      this.music.choose('CountryRoad')
+      if (this.count.gt(913)) {
+        this.music.choose(Music.uwuesketit.key)
+      } else {
+        this.music.choose(Music.CountryRoad.key)
+      }
     })
   },
   beforeDestroy() {
@@ -105,8 +115,13 @@ export default {
       this.count.add(1)
       this.accumulator.add(1)
       localStorage.setItem('count', this.count.toString())
-      if (this.music && !this.music.playing) {
+      if (!this.music) return
+      if (this.count.eq(913)) {
+        this.music.choose(Music.uwuesketit.key)
+      }
+      if (!this.music.playing) {
         this.music.play()
+        this.music.playing.loop = true
       }
     },
     release() {
