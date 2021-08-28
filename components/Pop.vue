@@ -50,7 +50,6 @@ export default {
     recovery: false,
     bot: false,
     nextToken: '',
-    captchaToken: '',
     count: new BigNumber(0),
     accumulator: new BigNumber(0),
     pressing: false,
@@ -94,6 +93,9 @@ export default {
     if (localStorage.getItem('count')) {
       this.count = new BigNumber(localStorage.getItem('count'))
     }
+    if (process.env.recaptcha) {
+      this.$recaptcha.init()
+    }
     window.addEventListener('keydown', this.meow)
     window.addEventListener('keyup', this.release)
     import('../plugins/music-player.js').then(({ MusicPlayer }) => {
@@ -106,6 +108,9 @@ export default {
     })
   },
   beforeDestroy() {
+    if (process.env.recaptcha) {
+      this.$recaptcha.destroy()
+    }
     window.addEventListener('keydown', this.meow)
     window.addEventListener('keyup', this.release)
   },
@@ -161,10 +166,14 @@ export default {
       }
     },
     async post(append) {
+      let captchaToken = ''
+      if (process.env.recaptcha) {
+        captchaToken = await this.$recaptcha.execute('meow')
+      }
       const query = qs.stringify({
         token: this.nextToken,
         count: append.toString(),
-        captcha_token: this.captchaToken,
+        captcha_token: captchaToken,
       })
       try {
         const response = await this.$axios.post(`/pop?${query}`)

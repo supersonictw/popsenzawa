@@ -9,6 +9,23 @@ if (process.env.NODE_ENV === 'development' && process.env.HTTPS === 'yes') {
   }
 }
 
+const recaptchaOptions = {}
+const enabledRecaptcha = process.env.RECAPTCHA === 'yes'
+if (enabledRecaptcha) {
+  recaptchaOptions.version = 3
+  recaptchaOptions.size = 'invisible'
+  recaptchaOptions.hideBadge = process.env.RECAPTCHA_HIDE_BADGE === 'yes'
+  recaptchaOptions.siteKey = process.env.RECAPTCHA_SITE_KEY
+}
+
+const enabledModules = [
+  // https://go.nuxtjs.dev/axios
+  '@nuxtjs/axios',
+]
+if (enabledRecaptcha) {
+  enabledModules.push('@nuxtjs/recaptcha')
+}
+
 export default {
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
@@ -63,15 +80,13 @@ export default {
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: [
-    // https://go.nuxtjs.dev/axios
-    '@nuxtjs/axios',
-  ],
+  modules: enabledModules,
 
   env: {
     popApiHost: process.env.POP_API_HOST,
     sendDelay: process.env.SEND_DELAY || '1000',
     maxPops: process.env.MAX_POPS || '800',
+    recaptcha: enabledRecaptcha,
   },
 
   router: {
@@ -107,4 +122,6 @@ export default {
   build: {},
 
   server: serverOptions,
+
+  recaptcha: recaptchaOptions,
 }
