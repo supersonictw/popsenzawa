@@ -100,7 +100,15 @@ export default {
     window.addEventListener('keyup', this.release)
     import('../plugins/music-player.js').then(({ MusicPlayer }) => {
       this.music = new MusicPlayer()
-      if (this.count.gt(913)) {
+      if (this.count.gt(20191215)) {
+        this.music.choose(Music.OkiDokiBoomer.key)
+      } else if (this.count.gt(1200000)) {
+        this.music.choose(Music.KoKeKo.key)
+      } else if (this.count.gt(201607)) {
+        this.music.choose(Music.PapaTutuWawa.key)
+      } else if (this.count.gt(2020)) {
+        this.music.choose(Music.PadowoPadowo.key)
+      } else if (this.count.eq(913)) {
         this.music.choose(Music.uwuesketit.key)
       } else {
         this.music.choose(Music.CountryRoad.key)
@@ -121,6 +129,9 @@ export default {
       this.accumulator.add(1)
       localStorage.setItem('count', this.count.toString())
       if (!this.music) return
+      if (this.count.eq(2020)) {
+        this.music.choose(Music.PadowoPadowo.key)
+      }
       if (this.count.eq(913)) {
         this.music.choose(Music.uwuesketit.key)
       }
