@@ -125,6 +125,7 @@ export default {
   },
   methods: {
     meow() {
+      if (this.pressing) return
       this.pressing = true
       this.count.add(1)
       this.accumulator.add(1)
