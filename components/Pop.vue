@@ -108,7 +108,9 @@ export default {
     window.addEventListener('keyup', this.release)
     import('../plugins/music-player.js').then(({ MusicPlayer }) => {
       this.music = new MusicPlayer()
-      const musicIndex = Object.keys(MUSIC_MAP).find((v) => this.count.gt(v))
+      const musicIndex = Object.keys(MUSIC_MAP)
+        .reverse()
+        .find((v) => this.count.gt(v))
       if (musicIndex !== undefined) {
         this.music.choose(MUSIC_MAP[musicIndex])
       } else {
