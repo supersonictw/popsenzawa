@@ -27,7 +27,7 @@
     "@nuxtjs/recaptcha": "^1.0.4",
     "bignumber.js": "^9.0.1",
     "core-js": "^3.17.1",
-    "js-base64": "^3.6.1",
+    "js-base64": "^3.7.0",
     "json-bigint": "^1.0.0",
     "moment": "^2.29.1",
     "nuxt": "^2.14.12",
