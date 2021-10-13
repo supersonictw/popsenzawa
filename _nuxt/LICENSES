@@ -23,6 +23,25 @@
  */
 
 
+/*!
+  * vue-router v3.5.2
+  * (c) 2021 Evan You
+  * @license MIT
+  */
+
+/*!
+ * Vue.js v2.6.14
+ * (c) 2014-2021 Evan You
+ * Released under the MIT License.
+ */
+
+/*!
+ * vuex v3.6.2
+ * (c) 2021 Evan You
+ * @license MIT
+ */
+
+
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation.
 
@@ -43,23 +62,4 @@ PERFORMANCE OF THIS SOFTWARE.
  * @author Yotam Mann
  * @license http://opensource.org/licenses/MIT MIT License
  * @copyright 2014-2019 Yotam Mann
- */
-
-
-/*!
-  * vue-router v3.5.2
-  * (c) 2021 Evan You
-  * @license MIT
-  */
-
-/*!
- * Vue.js v2.6.14
- * (c) 2014-2021 Evan You
- * Released under the MIT License.
- */
-
-/*!
- * vuex v3.6.2
- * (c) 2021 Evan You
- * @license MIT
  */
