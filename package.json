@@ -26,7 +26,7 @@
     "@nuxtjs/axios": "^5.12.5",
     "@nuxtjs/recaptcha": "^1.0.4",
     "bignumber.js": "^9.0.1",
-    "core-js": "^3.18.3",
+    "core-js": "^3.19.0",
     "js-base64": "^3.7.2",
     "json-bigint": "^1.0.0",
     "moment": "^2.29.1",
