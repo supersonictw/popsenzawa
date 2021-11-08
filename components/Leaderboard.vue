@@ -40,6 +40,9 @@ export default {
     this.listener.on('message', this.update)
     this.listener.connect()
   },
+  beforeDestroy() {
+    this.listener.disconnect()
+  },
   methods: {
     update(response) {
       response = BigJSON.parse(response)
