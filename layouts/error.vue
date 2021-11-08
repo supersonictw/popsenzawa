@@ -1,14 +1,17 @@
 <template>
   <v-app dark>
-    <v-card>
-      <v-card-title v-if="error.statusCode === 404">
-        {{ pageNotFound }}
-      </v-card-title>
-      <v-card-title v-else>
-        {{ otherError }}
-      </v-card-title>
+    <v-card class="my-15 mx-9">
+      <v-card-title> PopSenzawa (popcat-active) </v-card-title>
+      <v-card-subtitle>> Client Error</v-card-subtitle>
+      <v-card-text>
+        Message:
+        <span v-if="error.statusCode === 404">
+          &quot;{{ pageNotFound }}&quot;
+        </span>
+        <span v-else> &quot;{{ otherError }}&quot; </span>
+      </v-card-text>
       <v-card-actions>
-        <v-btn class="primary" nuxt to="/"> Home page </v-btn>
+        <v-btn class="primary" @click="retry">Retry</v-btn>
       </v-card-actions>
     </v-card>
   </v-app>
@@ -36,6 +39,11 @@ export default {
     return {
       title,
     }
+  },
+  methods: {
+    retry() {
+      location.reload()
+    },
   },
 }
 </script>
