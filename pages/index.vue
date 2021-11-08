@@ -26,7 +26,7 @@ import Leaderboard from '~/components/Leaderboard'
 import Information from '~/components/Information'
 
 export default {
-  name: 'Index',
+  name: 'PageIndex',
   components: { Information, Leaderboard, Pop },
   data: () => ({
     info: false,

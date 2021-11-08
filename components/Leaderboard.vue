@@ -22,7 +22,7 @@ import BigJSON from 'json-bigint'
 import BigNumber from 'bignumber.js'
 
 export default {
-  name: 'Leaderboard',
+  name: 'ComponentLeaderboard',
   data: () => ({
     leaderboard: {
       global: new BigNumber(0),

@@ -8,7 +8,7 @@
 
 <script>
 export default {
-  name: 'Default',
+  name: 'LayoutDefault',
   computed: {
     wrapper() {
       const num = Math.floor(Math.random() * 8) + 1

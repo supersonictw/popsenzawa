@@ -52,7 +52,7 @@ const MUSIC_MAP = {
 }
 
 export default {
-  name: 'Pop',
+  name: 'ComponentPop',
   data: () => ({
     ready: false,
     recovery: false,

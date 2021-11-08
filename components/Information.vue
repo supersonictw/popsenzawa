@@ -45,7 +45,8 @@
 
 <script>
 export default {
-  name: 'Information',
+  // eslint-disable-next-line vue/multi-word-component-names
+  name: 'ComponentInformation',
   computed: {
     height() {
       return window.innerHeight - 150
