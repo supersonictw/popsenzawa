@@ -4,7 +4,7 @@
     <v-card class="overflow-y-auto" width="350" :max-height="height">
       <v-list>
         <v-list-item v-for="(value, key) in leaderboard.regions" :key="key">
-          {{ key }}: {{ value }}
+          {{ getFlag(key) }} {{ key }}: {{ value }}
         </v-list-item>
       </v-list>
     </v-card>
@@ -20,10 +20,12 @@
 <script>
 import BigJSON from 'json-bigint'
 import BigNumber from 'bignumber.js'
+import getFlag from 'country-code-to-flag-emoji'
 
 export default {
   name: 'ComponentLeaderboard',
   data: () => ({
+    getFlag,
     leaderboard: {
       global: new BigNumber(0),
       regions: {},
