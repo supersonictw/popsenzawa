@@ -64,6 +64,6 @@
     "stylelint-config-prettier": "^9.0.2",
     "stylelint-config-standard": "^22.0.0",
     "vue-jest": "^3.0.4",
-    "vuetify": "^2.6.1"
+    "vuetify": "^2.6.3"
   }
 }
