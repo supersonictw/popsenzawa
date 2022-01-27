@@ -58,7 +58,7 @@
     "jest": "^27.4.5",
     "jsdom": "^19.0.0",
     "jsdom-global": "^3.0.2",
-    "lint-staged": "^12.1.4",
+    "lint-staged": "^12.3.2",
     "prettier": "^2.5.1",
     "stylelint": "^13.9.0",
     "stylelint-config-prettier": "^9.0.2",
