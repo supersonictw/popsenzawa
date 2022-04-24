@@ -30,7 +30,7 @@
     "country-code-to-flag-emoji": "^1.1.0",
     "js-base64": "^3.7.2",
     "json-bigint": "^1.0.0",
-    "moment": "^2.29.1",
+    "moment": "^2.29.3",
     "nuxt": "^2.14.12",
     "query-string": "^7.1.1",
     "tone": "^14.7.77",
