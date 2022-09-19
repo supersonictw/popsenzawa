@@ -26,7 +26,7 @@
     "@nuxtjs/axios": "^5.12.5",
     "@nuxtjs/recaptcha": "^1.0.4",
     "bignumber.js": "^9.0.2",
-    "core-js": "^3.22.2",
+    "core-js": "^3.25.2",
     "country-code-to-flag-emoji": "^1.1.0",
     "js-base64": "^3.7.2",
     "json-bigint": "^1.0.0",
