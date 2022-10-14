@@ -19,7 +19,7 @@ jobs:
           npm run build
           npm run generate
       - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@v4.3.0
+        uses: JamesIves/github-pages-deploy-action@v4.4.1
         with:
           branch: gh-pages
           folder: dist
