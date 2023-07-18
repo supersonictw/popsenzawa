@@ -180,14 +180,14 @@ async function submitPops() {
 
 async function handleSubmitSuccess(response) {
   const {
-    count_append: countAppend,
+    count_append: countAppended,
     new_token: newToken,
   } = await response.json();
   echoToken.value = newToken;
 
   const { status: statusCode } = response;
   if (statusCode === 202) {
-    countAppend.value -= countAppend;
+    countAppend.value -= countAppended;
   }
 }
 
