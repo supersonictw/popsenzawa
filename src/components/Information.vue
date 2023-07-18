@@ -1,13 +1,13 @@
 <template>
   <v-card color="cyan-darken-2" class="text-white" flat>
     <v-card-title>
-      PopSenzawa (popcat-active)
+      PopSenzawa (popsenzawa-active)
     </v-card-title>
     <v-card class="overflow-y-auto" width="350" :max-height="height" color="black" flat>
       <v-card-text>
-        <a href="https://github.com/supersonictw/popcat-active" rel="noopener noreferrer" target="_blank"
+        <a href="https://github.com/supersonictw/popsenzawa-active" rel="noopener noreferrer" target="_blank"
           class="text-white text-decoration-none">
-          popcat-active
+          popsenzawa-active
         </a>
         is an opensource project,<br />
         the web client of
@@ -15,14 +15,14 @@
           class="text-white text-decoration-none">
           popsenzawa-echo
         </a>
-        , built by Vue.js 3 and Nuxt.js.
+        , built by Vue.js 3 and Vite.
       </v-card-text>
       <v-card-text>
         The project is not related to real `Senzawa`, it's just for fun and
         testing.
         <br />
         The copyright of resources are listed on
-        <a href="https://github.com/supersonictw/popcat-active/blob/main/COPYING" rel="noopener noreferrer"
+        <a href="https://github.com/supersonictw/popsenzawa-active/blob/main/COPYING" rel="noopener noreferrer"
           target="_blank" class="text-white text-decoration-none">
           COPYING
         </a>.
