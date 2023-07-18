@@ -11,7 +11,7 @@
         </a>
         is an opensource project,<br />
         the web client of
-        <a href="https://github.com/supersonictw/popcat-echo" rel="noopener noreferrer" target="_blank"
+        <a href="https://github.com/supersonictw/popsenzawa-echo" rel="noopener noreferrer" target="_blank"
           class="text-cyan text-decoration-none">
           popsenzawa-echo
         </a>
