@@ -1,9 +1,9 @@
 <template>
   <v-card color="red-darken-2" flat>
-    <v-card-title> Worldwide: {{ global }}</v-card-title>
+    <v-card-title> Worldwide: {{ globalSum }}</v-card-title>
     <v-card class="overflow-y-auto" width="350" :max-height="height" flat>
       <v-list bg-color="black">
-        <v-list-item v-for="(value, key) in regions" :key="key">
+        <v-list-item v-for="(value, key) in regionMapSorted" :key="key">
           {{ getRegionFlag(key) }} {{ key }}: {{ value }}
         </v-list-item>
       </v-list>
@@ -26,8 +26,13 @@ import {
   clientBaseUrl as echoClientBaseUrl
 } from '../clients/echo';
 
-const global = ref(0);
-const regions = ref({});
+const globalSum = ref(0);
+const regionMap = ref({});
+
+const regionMapSorted = computed(() => Object.entries(regionMap.value)
+  .sort(([, a], [, b]) => (a < b ? 1 : -1))
+  .reduce((r, [k, v]) => ({ ...r, [k]: v }), {})
+);
 
 const height = computed(() => {
   return window.innerHeight - 150
@@ -44,10 +49,41 @@ function getRegionFlag(regionCode) {
 function onMessage(response) {
   const { data: dataText } = response;
   const dataJson = JSON.parse(dataText);
-  global.value = dataJson.global;
-  regions.value = Object.entries(dataJson.regions)
-    .sort(([, a], [, b]) => (a.lt(b) ? 1 : -1))
-    .reduce((r, [k, v]) => ({ ...r, [k]: v }), {})
+
+  const {
+    type: messageType,
+    pops: messagePops,
+  } = dataJson;
+
+  switch (messageType) {
+    case "init_pop": {
+      const {
+        global_sum: initGlobalSum,
+        region_map: initRegionMap,
+      } = messagePops;
+
+      globalSum.value = initGlobalSum;
+      regionMap.value = initRegionMap;
+
+      break;
+    }
+    case "next_pop": {
+      const {
+        region_code: regionCode,
+        count_append: countAppend,
+      } = messagePops;
+
+      globalSum.value += countAppend;
+
+      if (regionCode in regionMap.value) {
+        regionMap.value[regionCode] += countAppend;
+      } else {
+        regionMap.value[regionCode] = countAppend;
+      }
+
+      break;
+    }
+  }
 }
 
 onMounted(() => {
