@@ -163,19 +163,41 @@ async function submitPops() {
   // Copy from memory
   const countCurrent = countAppend.value;
   const tokenCurrent = echoToken.value;
-  // Do request
+  // Submit pops
   const queryString = qs.stringify({
     count: countCurrent,
     token: tokenCurrent,
   });
-  const response = await echoClient.post(`pops?${queryString}`);
-  // Handle response
+  try {
+    const response = await echoClient.post(`pops?${queryString}`);
+    handleSubmitSuccess(response);
+  } catch (error) {
+    handleSubmitError(error);
+  } finally {
+    isSubmitTriggered.value = false;
+  }
+}
+
+async function handleSubmitSuccess(response) {
   const { new_token: newToken } = await response.json();
   echoToken.value = newToken;
+
   if (tokenCurrent !== "") {
     countAppend.value -= countCurrent;
   }
-  isSubmitTriggered.value = false;
+}
+
+async function handleSubmitError(error) {
+  const { response } = error;
+  if (!response) {
+    console.error(error);
+  }
+
+  const { status: statusCode } = response;
+  if (statusCode === 401) {
+    echoToken.value = "";
+  }
+  console.warn(error);
 }
 </script>
 
