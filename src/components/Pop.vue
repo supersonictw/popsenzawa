@@ -165,14 +165,16 @@ async function submitPops() {
   const tokenCurrent = echoToken.value;
   // Do request
   const queryString = qs.stringify({
-    token: tokenCurrent,
     count: countCurrent,
+    token: tokenCurrent,
   });
   const response = await echoClient.post(`pops?${queryString}`);
   // Handle response
   const { new_token: newToken } = await response.json();
   echoToken.value = newToken;
-  countAppend.value -= countCurrent;
+  if (tokenCurrent !== "") {
+    countAppend.value -= countCurrent;
+  }
   isSubmitTriggered.value = false;
 }
 </script>
