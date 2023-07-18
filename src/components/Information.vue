@@ -6,13 +6,13 @@
     <v-card class="overflow-y-auto" width="350" :max-height="height" color="black" flat>
       <v-card-text>
         <a href="https://github.com/supersonictw/popsenzawa-active" rel="noopener noreferrer" target="_blank"
-          class="text-white text-decoration-none">
+          class="text-cyan text-decoration-none">
           popsenzawa-active
         </a>
         is an opensource project,<br />
         the web client of
         <a href="https://github.com/supersonictw/popcat-echo" rel="noopener noreferrer" target="_blank"
-          class="text-white text-decoration-none">
+          class="text-cyan text-decoration-none">
           popsenzawa-echo
         </a>
         , built by Vue.js 3 and Vite.
@@ -23,7 +23,7 @@
         <br />
         The copyright of resources are listed on
         <a href="https://github.com/supersonictw/popsenzawa-active/blob/main/COPYING" rel="noopener noreferrer"
-          target="_blank" class="text-white text-decoration-none">
+          target="_blank" class="text-cyan text-decoration-none">
           COPYING
         </a>.
       </v-card-text>

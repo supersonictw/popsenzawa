@@ -4,10 +4,10 @@
       <v-container id="container">
         <pop />
         <div class="board-btn-row">
-          <v-btn size="x-large" color="black" rounded @click="info = true">
+          <v-btn size="x-large" color="black" class="mx-1" rounded @click="info = true">
             <v-icon size="x-large">mdi-information</v-icon>
           </v-btn>
-          <v-btn size="x-large" color="black" rounded @click="board = true">
+          <v-btn size="x-large" color="black" class="mx-1" rounded @click="board = true">
             <v-icon size="x-large">mdi-earth</v-icon>
           </v-btn>
         </div>
