@@ -182,7 +182,8 @@ async function handleSubmitSuccess(response) {
   const { new_token: newToken } = await response.json();
   echoToken.value = newToken;
 
-  if (tokenCurrent !== "") {
+  const { status: statusCode } = response;
+  if (statusCode === 202) {
     countAppend.value -= countCurrent;
   }
 }
