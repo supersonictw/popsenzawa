@@ -75,8 +75,8 @@ watch(countAccumulated, (value) => {
   localStorage.setItem("count_accumulated", value.toString());
 });
 
-watch(countAppend, () => {
-  if (isSubmitTriggered.value) {
+watch(countAppend, (value) => {
+  if (value < 1 || isSubmitTriggered.value) {
     return;
   }
   isSubmitTriggered.value = true;
@@ -186,7 +186,7 @@ async function handleSubmitSuccess(response) {
   echoToken.value = newToken;
 
   const { status: statusCode } = response;
-  if (statusCode === 202) {
+  if (statusCode === 202 && countAppended) {
     countAppend.value -= countAppended;
   }
 }
