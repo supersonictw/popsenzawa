@@ -1,69 +1,26 @@
 {
-  "name": "popcat-active",
-  "version": "1.0.0",
+  "name": "popsenzawa-active",
   "private": true,
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "dev": "nuxt",
-    "build": "nuxt build",
-    "start": "nuxt start",
-    "generate": "nuxt generate",
-    "lint:js": "eslint --ext \".js,.vue\" --ignore-path .gitignore .",
-    "lint:style": "stylelint \"**/*.{vue,css}\" --ignore-path .gitignore",
-    "lint": "npm run lint:js && npm run lint:style",
-    "test": "jest"
-  },
-  "lint-staged": {
-    "*.{js,vue}": "eslint",
-    "*.{css,vue}": "stylelint"
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
-      "pre-commit": "lint-staged"
-    }
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "dependencies": {
-    "@nuxtjs/axios": "^5.12.5",
-    "@nuxtjs/recaptcha": "^1.0.4",
-    "bignumber.js": "^9.0.2",
-    "core-js": "^3.22.2",
-    "country-code-to-flag-emoji": "^1.1.0",
-    "js-base64": "^3.7.2",
-    "json-bigint": "^1.0.0",
-    "moment": "^2.29.3",
-    "nuxt": "^2.14.12",
-    "query-string": "^7.1.1",
+    "country-code-to-flag-emoji": "^1.3.1",
+    "ky": "^0.33.3",
+    "query-string": "^8.1.0",
+    "sass": "^1.63.6",
     "tone": "^14.7.77",
-    "vue-sse": "^2.4.1"
+    "vite-plugin-vuetify": "^1.0.2",
+    "vue": "^3.2.45",
+    "vue-recaptcha-v3": "^2.0.1"
   },
   "devDependencies": {
-    "@babel/eslint-parser": "^7.17.0",
-    "@commitlint/cli": "^16.2.3",
-    "@commitlint/config-conventional": "^16.2.1",
-    "@nuxtjs/eslint-config": "^9.0.0",
-    "@nuxtjs/eslint-module": "^3.1.0",
-    "@nuxtjs/stylelint-module": "^4.1.0",
-    "@nuxtjs/vuetify": "^1.12.3",
-    "@vue/test-utils": "^1.3.0",
-    "babel-core": "7.0.0-bridge.0",
-    "babel-eslint": "^10.1.0",
-    "babel-jest": "^27.5.1",
-    "dotenv": "^16.0.0",
-    "eslint": "^8.14.0",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-nuxt": "^3.2.0",
-    "eslint-plugin-prettier": "^4.0.0",
-    "eslint-plugin-vue": "^8.7.1",
-    "husky": "^7.0.2",
-    "jest": "^27.5.1",
-    "jsdom": "^19.0.0",
-    "jsdom-global": "^3.0.2",
-    "lint-staged": "^12.4.0",
-    "prettier": "^2.6.2",
-    "stylelint": "^14.7.1",
-    "stylelint-config-prettier": "^9.0.2",
-    "stylelint-config-standard": "^25.0.0",
-    "vue-jest": "^3.0.4",
-    "vuetify": "^2.6.4"
+    "@mdi/font": "^7.2.96",
+    "@vitejs/plugin-vue": "^4.0.0",
+    "vite": "^4.1.0"
   }
 }
