@@ -1,7 +1,34 @@
-# Vue 3 + Vite
+# PopSenzawa (popsenzawa-active)
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+> **Here is [PopSenzawa](https://randychen.tk/popsenzawa)! Awww (๑ºωº)**
 
-## Recommended IDE Setup
+![ù w ú](public/favicon.ico)
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+`popsenzawa-active` is an opensource project,
+the web client of `popsenzawa-echo`,
+built by [Vue.js 3](https://vuejs.org) and [Vite](https://vitejs.dev).
+
+The project is not related to real `Senzawa`, it's just for fun and testing.
+
+## License
+
+The software is licensed under [MIT License](LICENSE).
+
+## Build Setup
+
+```bash
+# install dependencies
+$ npm install
+
+# serve with hot reload at localhost:5173
+$ npm run dev
+
+# build for production
+$ npm run build
+```
+
+## Copyright
+
+The copyright of resources are listed on [COPYING](COPYING).
+
+> (c) 2023 [SuperSonic](https://github.com/supersonictw).
