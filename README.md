@@ -1,6 +1,6 @@
 # PopSenzawa (popsenzawa-active)
 
-> **Here is [PopSenzawa](https://randychen.tk/popsenzawa)! Awww (๑ºωº)**
+> **Here is [PopSenzawa](https://shiranui.xyz/popsenzawa)! Awww (๑ºωº)**
 
 ![ù w ú](public/favicon.ico)
 
